@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="RecruitmentSystem:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="RecruitmentSystem.war">
-      <element id="artifact" artifact-name="RecruitmentSystem:war exploded" />
-    </root>
-  </artifact>
-</component>
