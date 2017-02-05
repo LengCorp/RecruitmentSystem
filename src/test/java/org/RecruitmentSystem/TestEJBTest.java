@@ -22,9 +22,9 @@ public class TestDemo {
     private TestEJB ejb;
 
     @org.junit.Test
-    public void getUsername() throws Exception {
+    public void testBajs() throws Exception {
         System.out.println(ejb.bajs());
-        assertNotNull(ejb.bajs());
+        assertEquals(ejb.bajs(), "bajs");
     }
 
     @Deployment
