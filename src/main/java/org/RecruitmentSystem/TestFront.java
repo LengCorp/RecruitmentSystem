@@ -33,7 +33,4 @@ public class TestFront {
         return ejb.bajs();
     }
 
-    public String getShit() {
-        return ejb.shit();
-    }
 }
