@@ -9,18 +9,18 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "competence_profile", schema = "recruitment_system", catalog = "")
 public class CompetenceProfile {
-    private long competenceProfileId;
+    private int competenceProfileId;
     private int personId;
     private int competenceId;
     private BigDecimal yearsOfExperience;
 
     @Id
     @Column(name = "competence_profile_id")
-    public long getCompetenceProfileId() {
+    public int getCompetenceProfileId() {
         return competenceProfileId;
     }
 
-    public void setCompetenceProfileId(long competenceProfileId) {
+    public void setCompetenceProfileId(int competenceProfileId) {
         this.competenceProfileId = competenceProfileId;
     }
 

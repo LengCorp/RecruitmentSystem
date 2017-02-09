@@ -10,16 +10,16 @@ import javax.persistence.Id;
  */
 @Entity
 public class Role {
-    private long roleId;
+    private int roleId;
     private String name;
 
     @Id
     @Column(name = "role_id")
-    public long getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
