@@ -18,6 +18,41 @@
 
 <h:body>
     <h:outputText value="hello mr users"/>
+    <h:form>
+        <p>
+            <h:outputLabel for="name" value="Name: "/>
+            <h:inputText id="name" value="#{Users.name}"/>
+        </p>
+        <p>
+            <h:outputLabel for="surname" value="Surname: "/>
+            <h:inputText id="surname" value="#{Users.surname}"/>
+        </p>
+        <p>
+            <h:outputLabel for="ssn" value="Ssn: "/>
+            <h:inputText id="ssn" value="#{Users.ssn}"/>
+        </p>
+        <p>
+            <h:outputLabel for="email" value="Email: "/>
+            <h:inputText id="email" value="#{Users.email}"/>
+        </p>
+        <p>
+            <h:outputLabel for="password" value="Password: "/>
+            <h:inputText id="password" value="#{Users.password}"/>
+        </p>
+
+        <p>
+            <h:outputLabel for="roleID" value="role ID: "/>
+            <h:inputText id="roleID" value="#{Users.roleId}"/>
+        </p>
+        <p>
+            <h:outputLabel for="username" value="Username: "/>
+            <h:inputText id="username" value="#{Users.username}"/>
+        </p>
+        <h:commandButton action="#{Users.createUser}" value="Create user"/>
+        <p>
+            <h:outputLabel rendered="#{Users.createUser}" value="#{Users.returnResult}"/>
+        </p>
+    </h:form>
 </h:body>
 
 </html>
