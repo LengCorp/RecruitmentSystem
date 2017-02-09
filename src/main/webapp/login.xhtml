@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: daseel
+  Date: 2/9/17
+  Time: 5:44 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title></title>
+</h:head>
+
+<h:body>
+    <h:form id="loginForm" onsubmit="document.loginForm.action = 'j_security_check';">
+        <h:outputLabel value="Username"/>
+        <input name="j_username" type="text" />
+        <h:outputLabel value="Passwort"/>
+        <input name="j_password" size="15" type="password" />
+        <h:commandButton value="Anmelden"/>
+    </h:form>
+</h:body>
+
+</html>
