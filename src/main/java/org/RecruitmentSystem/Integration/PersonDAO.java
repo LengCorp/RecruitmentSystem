@@ -2,23 +2,24 @@ package org.RecruitmentSystem.Integration;
 
 import org.RecruitmentSystem.model.Person;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 
 /**
  * Created by Hiden on 2/9/2017.
  */
-
+@Transactional
 public class PersonDAO {
-    private EntityManagerFactory emf;
+
+    EntityManager em;
     public PersonDAO(){
         super();
-        this.emf = Persistence.createEntityManagerFactory("RSPU");
+        em = Persistence.createEntityManagerFactory("RSPU").createEntityManager();
     }
 
     public String addUser( int personId, String name, String surname, String ssn, String email, String password, int roleId, String username){
-        EntityManager em = beginTransaction();
 
         Person person = new Person();
 
@@ -33,21 +34,12 @@ public class PersonDAO {
         try{
         em.persist(person);
         }catch (Exception ex){
+            ex.printStackTrace();
             return "fail";
         }
-        commitTransaction(em);
-
+        em.close();
+        System.out.println("success");
         return "success";
     }
 
-    private EntityManager beginTransaction() {
-        EntityManager entity = emf.createEntityManager();
-        entity.getTransaction().begin();
-        return entity;
-    }
-
-    private void commitTransaction(EntityManager em) {
-        em.getTransaction().commit();
-        em.close();
-    }
 }

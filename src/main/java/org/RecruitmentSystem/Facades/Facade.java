@@ -8,6 +8,7 @@ import org.RecruitmentSystem.Integration.PersonDAO;
 public class Facade {
         PersonDAO personHandler;
     public Facade(){
+        super();
         personHandler  = new PersonDAO();
     }
     public String createUser(int personId, String name, String surname, String ssn, String email, String password, int roleId, String username){

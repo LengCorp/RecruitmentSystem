@@ -79,3 +79,4 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 /RecruitmentSystem.iml
+.idea/

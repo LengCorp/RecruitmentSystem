@@ -88,8 +88,6 @@ public class UserManager {
         success = null;
         success = userfacade.createUser(personId, name, surname, ssn, email, password, roleId, username);
     }
+    public String getSuccess(){ return  success;}
     public Boolean getCreateUser(){return success!=null;}
-    public String returnResult(){
-        return success;
-    }
 }

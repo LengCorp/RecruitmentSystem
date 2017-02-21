@@ -17,8 +17,12 @@
 </h:head>
 
 <h:body>
-    <h:outputText value="hello mr users"/>
     <h:form>
+
+        <p>
+            <h:outputLabel for="personID" value="Person ID: "/>
+            <h:inputText id="personID" value="#{Users.personId}"/>
+        </p>
         <p>
             <h:outputLabel for="name" value="Name: "/>
             <h:inputText id="name" value="#{Users.name}"/>
@@ -50,7 +54,7 @@
         </p>
         <h:commandButton action="#{Users.createUser}" value="Create user"/>
         <p>
-            <h:outputLabel rendered="#{Users.createUser}" value="#{Users.returnResult}"/>
+            <h:outputLabel rendered="#{Users.createUser}" value="#{Users.success}"/>
         </p>
     </h:form>
 </h:body>
