@@ -1,7 +1,6 @@
-package org.RecruitmentSystem.View;
+package org.recruitmentSystem.view;
 
-import org.RecruitmentSystem.Facades.Facade;
-import org.RecruitmentSystem.Integration.PersonDAO;
+import org.recruitmentSystem.facades.Facade;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

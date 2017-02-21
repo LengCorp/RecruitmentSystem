@@ -1,6 +1,6 @@
-package org.RecruitmentSystem.Facades;
+package org.recruitmentSystem.facades;
 
-import org.RecruitmentSystem.Integration.PersonDAO;
+import org.recruitmentSystem.integration.PersonDAO;
 
 /**
  * Created by Hiden on 2/8/2017.

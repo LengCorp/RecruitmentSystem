@@ -1,4 +1,4 @@
-package org.RecruitmentSystem.model;
+package org.recruitmentSystem.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by daseel on 2/9/17.
  */
 @Entity
-@Table(name = "competence_profile", schema = "recruitment_system", catalog = "")
+@Table(name = "competence_profile")
 public class CompetenceProfile {
     private int competenceProfileId;
     private int personId;

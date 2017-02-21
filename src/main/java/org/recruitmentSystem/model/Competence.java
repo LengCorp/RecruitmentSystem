@@ -1,26 +1,24 @@
-package org.RecruitmentSystem.model;
+package org.recruitmentSystem.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by daseel on 2/9/17.
  */
 @Entity
-public class Role {
-    private int roleId;
+@Table(name = "competence")
+public class Competence {
+    private int competenceId;
     private String name;
 
     @Id
-    @Column(name = "role_id")
-    public int getRoleId() {
-        return roleId;
+    @Column(name = "competence_id")
+    public int getCompetenceId() {
+        return competenceId;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setCompetenceId(int competenceId) {
+        this.competenceId = competenceId;
     }
 
     @Basic
@@ -38,17 +36,17 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Role role = (Role) o;
+        Competence that = (Competence) o;
 
-        if (roleId != role.roleId) return false;
-        if (name != null ? !name.equals(role.name) : role.name != null) return false;
+        if (competenceId != that.competenceId) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (roleId ^ (roleId >>> 32));
+        int result = competenceId;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

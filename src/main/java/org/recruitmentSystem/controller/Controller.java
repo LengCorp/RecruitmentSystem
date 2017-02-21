@@ -1,4 +1,4 @@
-package org.RecruitmentSystem.controller;
+package org.recruitmentSystem.controller;
 
 /**
  * Created by Hiden on 2/8/2017.

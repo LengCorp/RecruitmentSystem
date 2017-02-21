@@ -1,14 +1,12 @@
-package org.RecruitmentSystem.model;
+package org.recruitmentSystem.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by daseel on 2/9/17.
  */
-@Entity(name = "person")
+@Entity
+@Table(name = "person")
 public class Person {
     private int personId;
     private String name;

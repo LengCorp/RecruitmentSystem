@@ -1,9 +1,7 @@
-package org.RecruitmentSystem.Integration;
+package org.recruitmentSystem.integration;
 
-import org.RecruitmentSystem.model.Person;
+import org.recruitmentSystem.model.Person;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
