@@ -9,6 +9,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
 >
 
 
@@ -18,7 +19,13 @@
             Index sida
         </ui:define>
         <ui:define name="content">
-            <h1>Tjena</h1>
+            <b:jumbotron>
+                <h1 class="page-header">
+                    Welcome to our recruitment system!
+                </h1>
+                <p><a class="btn btn-primary btn-lg">Login!</a></p>
+            </b:jumbotron>
+
         </ui:define>
     </ui:composition>
 </h:body>
