@@ -22,13 +22,27 @@
         </ui:define>
         <ui:define name="content">
             <h1>Login!</h1>
-            <h:form id="loginForm" onsubmit="document.loginForm.action = 'j_security_check';">
-                <h:outputText value="Username"/>
-                <b:inputText name="j_username" type="text"/>
-                <h:outputLabel value="Passwort"/>
-                <b:inputText name="j_password" type="password"/>
-                <b:commandButton look="primary" value="Login"/>
-            </h:form>
+
+            <form action="j_security_check" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Username:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="" name="j_username"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Password:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="" name="j_password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+
         </ui:define>
     </ui:composition>
 
