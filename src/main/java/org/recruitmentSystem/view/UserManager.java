@@ -85,7 +85,7 @@ public class UserManager {
     public void createUser(){
         Facade userfacade = new Facade();
         success = null;
-        success = userfacade.createUser(personId, name, surname, ssn, email, password, roleId, username);
+        success = userfacade.createUser(name, surname, ssn, email, password, username);
     }
     public String getSuccess(){ return  success;}
     public Boolean getCreateUser(){return success!=null;}
