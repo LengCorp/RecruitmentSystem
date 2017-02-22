@@ -14,7 +14,7 @@ public class CompetenceProfile {
     private int competenceId;
     private BigDecimal yearsOfExperience;
 
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "competence_profile_id")
     public int getCompetenceProfileId() {
         return competenceProfileId;

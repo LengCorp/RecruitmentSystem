@@ -11,7 +11,7 @@ public class Competence {
     private int competenceId;
     private String name;
 
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "competence_id")
     public int getCompetenceId() {
         return competenceId;

@@ -14,7 +14,7 @@ public class Availability {
     private Date fromDate;
     private Date toDate;
 
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "availability_id")
     public int getAvailabilityId() {
         return availabilityId;
