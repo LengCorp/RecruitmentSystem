@@ -11,7 +11,7 @@ public class Facade {
         super();
         personHandler  = new PersonDAO();
     }
-    public String createUser(int personId, String name, String surname, String ssn, String email, String password, int roleId, String username){
+    public String createUser(String name, String surname, String ssn, String email, String password, int roleId, String username){
         //CHECK
         name = name.replaceAll("[A-Za-z]","");
         surname = surname.replaceAll("[A-Za-z]","");
@@ -20,6 +20,6 @@ public class Facade {
         password = password.replaceAll("[^A-Za-z0-9]","");
         username = username.replaceAll("[A-Za-z0-9]","");
         //CHECKED AND CALLS USER();
-        return personHandler.addUser(personId, name, surname, ssn, email, password, roleId, username);
+        return personHandler.addUser(name, surname, ssn, email, password, roleId, username);
     }
 }
