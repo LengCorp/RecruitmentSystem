@@ -3,14 +3,14 @@ package org.recruitmentSystem.facades;
 import org.recruitmentSystem.integration.PersonDAO;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 /**
  * Created by Hiden on 2/8/2017.
  */
-
-@Transactional
+@Stateless
 public class Facade {
 
     @EJB
@@ -18,7 +18,6 @@ public class Facade {
 
     public String createUser(String name, String surname, String ssn, String email, String password, String username){
 
-        System.out.println(name+" "+surname+" "+ssn+" "+email+" "+password+" "+username);
         name = name.replaceAll("[^A-Za-z]","");
         surname = surname.replaceAll("[^A-Za-z]","");
         ssn = ssn.replaceAll("[^A-Za-z0-9]","");

@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 /**
  * Created by Hiden on 2/9/2017.
  */
+@Transactional
+@Stateless
 public class PersonDAO {
 
     @PersistenceContext(unitName = "RSPU",  type = PersistenceContextType.TRANSACTION)
