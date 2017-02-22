@@ -10,20 +10,28 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
 
-<h:head>
-    <title></title>
-</h:head>
 
 <h:body>
-    <h:form id="loginForm" onsubmit="document.loginForm.action = 'j_security_check';">
-        <h:outputLabel value="Username"/>
-        <input name="j_username" type="text" />
-        <h:outputLabel value="Passwort"/>
-        <input name="j_password" size="15" type="password" />
-        <h:commandButton value="Anmelden"/>
-    </h:form>
+
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Login page
+        </ui:define>
+        <ui:define name="content">
+            <h1>Login!</h1>
+            <h:form id="loginForm" onsubmit="document.loginForm.action = 'j_security_check';">
+                <h:outputText value="Username"/>
+                <b:inputText name="j_username" type="text"/>
+                <h:outputLabel value="Passwort"/>
+                <b:inputText name="j_password" type="password"/>
+                <b:commandButton look="primary" value="Login"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
 </h:body>
 
 </html>
