@@ -5,9 +5,10 @@ import org.recruitmentSystem.model.Competence;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Simon on 2017-02-22.
@@ -22,13 +23,11 @@ public class CompetenceDAO {
     public CompetenceDAO(){
     }
 
-    public ArrayList fetchCompetences(int competence_id, String name){
+    @Transactional
+    public List findAll(){
 
-        Competence competence = new Competence();
+        Query query = em.createNamedQuery("Competence.findAll", Competence.class);
 
-        competence.setCompetenceId(competence_id);
-        competence.setName(name);
-
-        return null;
+        return query.getResultList();
     }
 }
