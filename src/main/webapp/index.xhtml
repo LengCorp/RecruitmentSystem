@@ -8,17 +8,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
 >
 
-<h:head>
-    <title><h:outputText value="#{testFront.hue}"/></title>
-</h:head>
 
 <h:body>
-    <p>
-        <h:outputText value="#{testFront.bajs}"/>
-    </p>
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Recruitment System
+        </ui:define>
+        <ui:define name="content">
+            <b:jumbotron>
+                <h1 class="page-header">
+                    Welcome to our recruitment system!
+                </h1>
+                <p><a href="users.xhtml" class="btn btn-primary btn-lg">Apply for a Job!</a></p>
+            </b:jumbotron>
+
+        </ui:define>
+    </ui:composition>
 </h:body>
 
 </html>

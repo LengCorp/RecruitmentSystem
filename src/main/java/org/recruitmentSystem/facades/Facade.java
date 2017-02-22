@@ -13,19 +13,20 @@ import javax.transaction.Transactional;
 @Stateless
 public class Facade {
 
-    @EJB
-    private PersonDAO personHandler;
-
+        PersonDAO personHandler;
+    public Facade(){
+        super();
+        personHandler  = new PersonDAO();
+    }
     public String createUser(String name, String surname, String ssn, String email, String password, String username){
-
-        name = name.replaceAll("[^A-Za-z]","");
-        surname = surname.replaceAll("[^A-Za-z]","");
-        ssn = ssn.replaceAll("[^A-Za-z0-9]","");
-        email = email.replaceAll("[^A-Za-z@.]","");
-        password = password.replaceAll("[^A-Za-z0-9@]","");
-        username = username.replaceAll("[^A-Za-z0-9]","");
+        //CHECK
+        name = name.replaceAll("[A-Za-z]","");
+        surname = surname.replaceAll("[A-Za-z]","");
+        ssn = ssn.replaceAll("[A-Za-z0-9]","");
+        email = email.replaceAll("[A-Za-z]","");
+        password = password.replaceAll("[^A-Za-z0-9]","");
+        username = username.replaceAll("[A-Za-z0-9]","");
         //CHECKED AND CALLS USER();
-        System.out.println(name+" "+surname+" "+ssn+" "+email+" "+password+" "+username);
         return personHandler.addUser(name, surname, ssn, email, password, username);
     }
 }

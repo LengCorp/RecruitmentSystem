@@ -82,7 +82,7 @@ public class UserManager {
         this.username = username;
     }
 
-    public void createUser(){
+    public void createUser() {
         Facade userfacade = new Facade();
         success = null;
         success = userfacade.createUser(name, surname, ssn, email, password, username);
