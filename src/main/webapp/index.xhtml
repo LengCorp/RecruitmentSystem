@@ -8,17 +8,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
-<h:head>
-    <title><h:outputText value="#{testFront.hue}"/></title>
-</h:head>
 
 <h:body>
-    <p>
-        <h:outputText value="#{testFront.bajs}"/>
-    </p>
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Index sida
+        </ui:define>
+        <ui:define name="content">
+            <h1>Tjena</h1>
+        </ui:define>
+    </ui:composition>
 </h:body>
 
 </html>
