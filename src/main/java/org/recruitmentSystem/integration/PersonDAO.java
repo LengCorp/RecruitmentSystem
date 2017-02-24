@@ -1,5 +1,6 @@
 package org.recruitmentSystem.integration;
 
+import org.recruitmentSystem.Utils;
 import org.recruitmentSystem.model.Person;
 
 import javax.ejb.Stateless;
@@ -27,12 +28,14 @@ public class PersonDAO {
 
         Person person = new Person();
 
-        person.setName(name);
-        person.setSurname(surname);
-        person.setSsn(ssn);
-        person.setEmail(email);
-        person.setPassword(password);
-        person.setUsername(username);
+
+        System.out.println(name + " " + surname + " " + username + " " + ssn + " " + email + " " + password + " " + username);
+        person.setName(  name);
+        person.setSurname(  surname);
+        person.setSsn(   ssn);
+        person.setEmail(    email);
+        person.setPassword( password);
+        person.setUsername( username);
         person.setRoleId(1);
         try{
             em.persist(person);
@@ -40,7 +43,6 @@ public class PersonDAO {
             ex.printStackTrace();
             return "fail";
         }
-        System.out.println("success");
-        return "success";
+        return "Registration success";
     }
 }

@@ -8,9 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.rmi.CORBA.Util;
 
-@Named("Users")
 @ManagedBean
-public class UserManager {
+public class RegistrationManager {
     @EJB
     private PersonDAO personDAO;
 
@@ -69,10 +68,13 @@ public class UserManager {
         this.username = username;
     }
 
-    public void createUser() {
+    public void submitRegistration() {
         success = null;
         success = personDAO.addUser(forename, surname, ssn, email, password, username);
         System.out.println(forename + " " + surname + " " + username + " " + ssn + " " + email + " " + password + " " + username);
+    }
+    public boolean getSubmitRegistration(){
+        return success != null;
     }
     public String getSuccess(){
         System.out.println(success);
