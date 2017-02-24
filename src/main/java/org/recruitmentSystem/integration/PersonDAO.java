@@ -9,6 +9,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.rmi.CORBA.Util;
 import javax.transaction.Transactional;
 
 /**
@@ -30,12 +31,12 @@ public class PersonDAO {
 
 
         System.out.println(name + " " + surname + " " + username + " " + ssn + " " + email + " " + password + " " + username);
-        person.setName(  name);
-        person.setSurname(  surname);
-        person.setSsn(   ssn);
-        person.setEmail(    email);
-        person.setPassword( password);
-        person.setUsername( username);
+        person.setName(Utils.regexNames(name));
+        person.setSurname(Utils.regexNames(surname));
+        person.setSsn(Utils.regexSSN(ssn));
+        person.setEmail(Utils.regexEmail(email));
+        person.setPassword(Utils.regexPasswords(password));
+        person.setUsername(Utils.regexUsernames(username));
         person.setRoleId(1);
         try{
             em.persist(person);
