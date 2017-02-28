@@ -5,7 +5,7 @@ package org.recruitmentSystem;
  */
 public class Utils {
     public static String regexNames( String text){
-        return text.replaceAll("[a-zA-Zá-źÁ-Ź]","");
+        return text.replaceAll("[^a-zA-Zá-źÁ-Ź]","");
     }
     public static String regexUsernames(String email){
         return email.replaceAll("[^a-zA-Z0-9]","");

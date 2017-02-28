@@ -1,2 +1,5 @@
 body{
 }
+.failMessage {
+    word-wrap: break-word;
+}

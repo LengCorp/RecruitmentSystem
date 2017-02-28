@@ -29,7 +29,9 @@
             <h:form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <h:outputText style="color: red" rendered="#{register.submitRegistration}" value="#{register.fail}"/>
+                        <!--<h:outputFormat style="color: red; display: block;" layout="block" escape="false" rendered="#{register.submitRegistration}" value="#{register.fail}"/>
+                    !-->
+                        <h:message style="color: red; white-space: pre-wrap" for="submit"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -78,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <h:commandButton action="#{register.submitRegistration}" value="Register"/>
+                        <h:commandButton id="submit" binding="#{register.submitButton}" action="#{register.submitRegistration}" value="Register"/>
                     </div>
                 </div>
                 <h:outputLabel rendered="#{register.submitRegistration}" value="#{register.success}"/>

@@ -3,12 +3,18 @@ package org.recruitmentSystem.view;
 import org.recruitmentSystem.Utils;
 import org.recruitmentSystem.integration.PersonDAO;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 @ManagedBean
 public class RegistrationManager {
     @EJB
     private PersonDAO personDAO;
+
+    private UIComponent submitButton;
 
     private String forename;
     private String surname;
@@ -84,15 +90,46 @@ public class RegistrationManager {
     }
 
     public void submitRegistration() {
+        fail = null;
+        StringBuilder message = new StringBuilder();
+        boolean status=true;
+        if (forename == null){
+            message.append("Please enter a valid forname.\n");
+            status = false;
+        }
+        if (surname == null){
+            message.append("Please enter a valid surname.\n");
+            status = false;
+        }
+        if (ssn == null){
+            message.append("Please enter a valid SSN.\n");
+            status = false;
+        }
+        if(email == null){
+            message.append("Please enter a valid email.\n");
+            status = false;
+        }
+        if (password.length()<7 || password == null){
+            message.append("Please enter a valid password longer then 7 characters.\n");
+            status = false;
+        }
+        else if(password2 == null || !password.equals(password2)){
+            message.append("The passwords does not match.\n");
+            status = false;
+        }
+        if (status==false){
+            FacesMessage msg = new FacesMessage(message.toString());
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(submitButton.getClientId(context), msg);
+            fail = message.toString();
+            return;
+        }
         success = null;
-        if (password.length()>7 && password.equals(password2)) {
-            if (forename != null && surname != null && ssn != null && email != null && password != null && username != null) {
-                success = personDAO.addUser(forename, surname, ssn, email, password, username);
-            } else {
-                fail = "Fill following empty boxes with correct data.";
-            }
-        }else {
-                fail = "Passwords does not match. Or is shorter than 7 characters";
+        success = personDAO.addUser(forename, surname, ssn, email, password, username);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().dispatch("/registrationSuccess.xhtml");
+        } catch (IOException e) {
+            return;
         }
     }
     public boolean getSubmitRegistration(){
@@ -113,4 +150,11 @@ public class RegistrationManager {
 
     public Boolean getCreateUser(){return success!=null;}
 
+    public UIComponent getSubmitButton() {
+        return submitButton;
+    }
+
+    public void setSubmitButton(UIComponent submitButton) {
+        this.submitButton = submitButton;
+    }
 }
