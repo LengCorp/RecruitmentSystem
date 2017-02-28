@@ -6,7 +6,7 @@
 
     <container qualifier="jboss" default="true">
         <configuration>
-            <property name="jbossHome">/opt/wildfly/</property>
+            <property name="jbossHome">/wildfly/</property>
         </configuration>
     </container>
 </arquillian>
