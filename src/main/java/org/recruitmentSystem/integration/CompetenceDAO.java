@@ -7,8 +7,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Simon on 2017-02-22.
@@ -24,10 +23,11 @@ public class CompetenceDAO {
     }
 
     @Transactional
-    public List findAll(){
+    public List<Competence> findAll(){
 
-        Query query = em.createNamedQuery("Competence.findAll", Competence.class);
+        TypedQuery<Competence> query = em.createQuery("SELECT c FROM Competence c", Competence.class);
 
         return query.getResultList();
     }
+
 }
