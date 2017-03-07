@@ -8,18 +8,15 @@
 
 <h:body>
     <ui:composition>
-        <h:form>
             <b:navBar brand="Recruitment System" brandHref="#" inverse="true">
-
                 <c:if test="#{user.loggedIn}">
                     <b:navbarLinks pull="right" styleClass="hidden-xs">
                         <b:dropMenu value="#{user.userName}">
-                            <b:navCommandLink ajax="false" value="Logout" outcome="#{user.logout()}"/>
+                            <b:navLink href="#{request.getContextPath()}/logout" value="Logout"/>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </c:if>
             </b:navBar>
-        </h:form>
     </ui:composition>
 </h:body>
 </html>
