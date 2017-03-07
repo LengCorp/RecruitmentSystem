@@ -30,9 +30,6 @@ public class ApplyManager {
     private Map<String, Integer> submittedCompetences;
     private List<Competence> savedCompetences;
 
-    private UIComponent registerButton;
-    private UIComponent deleteButton;
-
     @PostConstruct
     public void init() {
         competences = competenceDAO.findAll();
@@ -70,6 +67,15 @@ public class ApplyManager {
 
             savedCompetences.remove(competenceToBeRemoved);
             submittedCompetences.remove(competenceToBeRemoved.getName());
+        }
+    }
+
+    public String checkIfThereIsACompetence(){
+
+        if(savedCompetences.size() > 0){
+            return "success";
+        } else {
+            return "failure";
         }
     }
 
@@ -114,19 +120,4 @@ public class ApplyManager {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public UIComponent getRegisterButton() {
-        return registerButton;
-    }
-
-    public void setRegisterButton(UIComponent registerButton) {
-        this.registerButton = registerButton;
-    }
-
-    public UIComponent getDeleteButton() {
-        return deleteButton;
-    }
-
-    public void setDeleteButton(UIComponent deleteButton) {
-        this.deleteButton = deleteButton;
-    }
 }
