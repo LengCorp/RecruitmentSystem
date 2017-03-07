@@ -1,11 +1,11 @@
 package org.recruitmentSystem.view;
 
-import com.sun.security.auth.UserPrincipal;
-
-import javax.faces.bean.SessionScoped;
+import javax.ejb.EJB;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.auth.Subject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
@@ -14,15 +14,12 @@ import java.security.Principal;
  * Created by daseel on 3/7/17.
  */
 @Named(value = "user")
-@SessionScoped
+@RequestScoped
 public class UserManager {
 
 
     @Inject
     private Principal myUser;
-
-    @Inject
-    private HttpSession session;
 
     public boolean isLoggedIn() {
 
@@ -32,11 +29,5 @@ public class UserManager {
     public String getUserName() {
 
         return isLoggedIn() ? myUser.getName() : "";
-    }
-
-    public String logout() {
-
-        session.invalidate();
-        return "logout";
     }
 }
