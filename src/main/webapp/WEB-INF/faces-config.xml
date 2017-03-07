@@ -31,4 +31,9 @@
         <managed-bean-class>org.recruitmentSystem.view.ApplyManager</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>register</managed-bean-name>
+        <managed-bean-class>org.recruitmentSystem.view.RegistrationManager</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

@@ -1,17 +1,21 @@
 package org.recruitmentSystem.view;
 
 import org.recruitmentSystem.integration.CompetenceDAO;
+import org.recruitmentSystem.integration.PersonDAO;
+import org.recruitmentSystem.model.Availability;
 import org.recruitmentSystem.model.Competence;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.inject.Inject;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by Simon on 2017-03-05.
@@ -20,21 +24,49 @@ import java.util.Map;
 @SessionScoped
 public class ApplyManager {
 
+    //competence part
     @EJB
     private CompetenceDAO competenceDAO;
-
     private List<Competence> competences;
     private int chosenCompetence;
-    private int chosenSavedCompetence;
     private int yearsOfExperience;
-    private Map<String, Integer> submittedCompetences;
     private List<Competence> savedCompetences;
+    private int chosenSavedCompetence;
+    private Map<String, Integer> submittedCompetences;
+
+    //availability part
+    private Date fromDate;
+    private Date toDate;
+    private String from;
+    private String to;
+    private List<Availability> availabilities;
+    @Inject
+    private UserManager userManager;
+    @EJB
+    private PersonDAO personDAO;
+
 
     @PostConstruct
     public void init() {
         competences = competenceDAO.findAll();
+        availabilities = new ArrayList<>();
         savedCompetences = new ArrayList<>();
         submittedCompetences = new HashMap<>();
+    }
+
+    public ApplyManager() {
+    }
+
+    public void saveDates() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        this.to = formatter.format(toDate);
+        this.from = formatter.format(fromDate);
+        Availability a = new Availability();
+        a.setFromDate(new java.sql.Date(fromDate.getTime()));
+        a.setToDate(new java.sql.Date(toDate.getTime()));
+        int id = personDAO.getPersonIDbyUserName(userManager.getUserName());
+        a.setPersonId(id);
+        availabilities.add(a);
     }
 
     public void saveCompetenceInput() {
@@ -70,18 +102,30 @@ public class ApplyManager {
         }
     }
 
-    public String checkIfThereIsACompetence(){
+    public String checkIfThereIsACompetence() {
 
-        if(savedCompetences.size() > 0){
+        if (savedCompetences.size() > 0) {
             return "success";
         } else {
             return "failure";
         }
     }
 
-    //TODO test
+    //TODO print-test
     public String getSubmittedCompetences() {
         return submittedCompetences.toString();
+    }
+
+    //TODO print-test
+    public List<String> getAvailabilities() {
+
+        List<String> result = new ArrayList<>();
+
+        for (Availability a : availabilities){
+            result.add("From: " + a.getFromDate() + " To: " + a.getToDate() + " ID: " + a.getPersonId());
+        }
+
+        return result;
     }
 
     public int getChosenSavedCompetence() {
@@ -120,4 +164,29 @@ public class ApplyManager {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+        this.from = fromDate.toString();
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+        this.to = toDate.toString();
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 }
