@@ -4,14 +4,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <h:body>
-        <ui:composition>
+<h:body>
+    <ui:composition>
+        <h:form>
             <b:navBar brand="Recruitment System" brandHref="#" inverse="true">
-                <b:navbarLinks>
-                </b:navbarLinks>
+
+                <c:if test="#{user.loggedIn}">
+                    <b:navbarLinks pull="right" styleClass="hidden-xs">
+                        <b:dropMenu value="#{user.userName}">
+                            <b:navCommandLink ajax="false" value="Logout" outcome="#{user.logout()}"/>
+                        </b:dropMenu>
+                    </b:navbarLinks>
+                </c:if>
             </b:navBar>
-        </ui:composition>
-    </h:body>
+        </h:form>
+    </ui:composition>
+</h:body>
 </html>
