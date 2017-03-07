@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
 
@@ -14,6 +15,32 @@
         </ui:define>
         <ui:define name="content">
             <h1>Apply!</h1>
+
+            <h:form>
+                <h:outputLabel for="competences" value="Chose your competence:" />
+                <h:selectOneMenu id="competences" value="#{apply.chosenCompetence}">
+                    <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
+                    <f:selectItems value="#{apply.competences}" var="item" itemLabel="#{item.name}" itemValue="#{item.competenceId}"/>
+                </h:selectOneMenu>
+                <h:outputLabel for="years" value="Years of experience:" />
+                <h:inputText id="years" value="#{apply.yearsOfExperience}"/>
+                <h:commandButton binding="#{apply.registerButton}" action="#{apply.saveCompetenceInput}" value="Register"/>
+            </h:form>
+
+            <h:form>
+                <h:outputLabel for="registeredCompetences" value="Your registered competences:" />
+                <h:selectOneMenu id="registeredCompetences" value="#{apply.chosenSavedCompetence}">
+                    <f:selectItem itemLabel="Select..." noSelectionOption="true" />
+                    <f:selectItems value="#{apply.savedCompetences}" var="itemtwo" itemLabel="#{itemtwo.name}" itemValue="#{itemtwo.competenceId}"/>
+                </h:selectOneMenu>
+                <h:commandButton binding="#{apply.deleteButton}" action="#{apply.deleteMarkedCompetence}" value="Delete"/>
+            </h:form>
+
+            <p>
+                hund: #{apply.submittedCompetences}
+            </p>
+
+
         </ui:define>
     </ui:composition>
 </h:body>
