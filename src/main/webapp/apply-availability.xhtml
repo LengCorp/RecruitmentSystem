@@ -16,6 +16,29 @@
         <ui:define name="content">
             <h1>Apply! - Availability</h1>
 
+            <h:form>
+                <h:outputLabel for="fromdate" value="From:"/>
+                <b:datepicker id="fromdate" mode="popup-icon" value="#{apply.fromDate}" />
+                <h:outputLabel for="todate" value="To:"/>
+                <b:datepicker id="todate" mode="popup-icon" value="#{apply.toDate}" />
+                <h:commandButton action="#{apply.saveDates}" value="test"/>
+            </h:form>
+
+            <p>
+                hund: #{apply.submittedCompetences}
+            </p>
+            <p>
+                from: #{apply.from}
+            </p>
+            <p>
+                to: #{apply.to}
+            </p>
+            <p>
+                availabilities: <br/>
+                <ui:repeat value="#{apply.availabilities}" var="item">
+                    #{item} <br/>
+                </ui:repeat>
+            </p>
 
 
         </ui:define>
