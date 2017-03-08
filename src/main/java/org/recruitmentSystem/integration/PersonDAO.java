@@ -54,8 +54,11 @@ public class PersonDAO {
      * @param ssn
      * @return person
      */
-    public Person getPerson(String ssn) throws PersistenceException {
+    public Person getPersonBySSN(String ssn) throws PersistenceException {
         Person person= em.createNamedQuery("person.getPersonBySSN",Person.class).setParameter("ssn", ssn).getSingleResult();
+        return person;
+    } public Person getPersonByUsername(String username) throws PersistenceException {
+        Person person= em.createNamedQuery("person.getPersonByUsername",Person.class).setParameter("username", username).getSingleResult();
         return person;
     }
     public List<Person> getAllPeople() throws PersistenceException{
