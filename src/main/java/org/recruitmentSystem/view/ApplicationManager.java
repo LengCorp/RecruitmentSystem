@@ -7,7 +7,6 @@ import org.recruitmentSystem.model.Application;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.PersistenceException;
-import java.util.List;
 
 /**
  * Created by Hiden on 3/8/2017.
@@ -27,14 +26,14 @@ public class ApplicationGetter {
     private String success;
     private String fail;
 
-    public void SearchForApplication(String ssn) {
+    public void SearchForApplicationWithSSN(String ssn) {
         success = null;
         if (ssn != Utils.regexSSN(ssn)) {
             fail = "Not valid SSN";
             return;
         }
         try {
-            application = appDAO.getApplication(ssn);
+            application = appDAO.getApplicationBySSN(ssn);
             personId = application.getPersonId();
             name = application.getName();
             surname = application.getSurname();
