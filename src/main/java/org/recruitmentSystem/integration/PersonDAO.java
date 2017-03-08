@@ -9,8 +9,10 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.persistence.PersistenceException;
 import javax.rmi.CORBA.Util;
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by Hiden on 2/9/2017.
@@ -45,5 +47,19 @@ public class PersonDAO {
             return "fail";
         }
         return "Registration success";
+    }
+
+    /**
+     * Gets Person with the correct SSN.
+     * @param ssn
+     * @return person
+     */
+    public Person getPerson(String ssn) throws PersistenceException {
+        Person person= em.createNamedQuery("person.getPersonBySSN",Person.class).setParameter("ssn", ssn).getSingleResult();
+        return person;
+    }
+    public List<Person> getAllPeople() throws PersistenceException{
+        List<Person> people= em.createNamedQuery("person.getAllPeople",Person.class).getResultList();
+        return people;
     }
 }

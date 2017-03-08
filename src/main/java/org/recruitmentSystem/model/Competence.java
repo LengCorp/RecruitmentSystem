@@ -6,6 +6,12 @@ import javax.persistence.*;
  * Created by daseel on 2/9/17.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name="competence.getCompetenceById",
+                query="SELECT c.name FROM Competence c where c.competenceId = :competenceId"),
+        @NamedQuery(name="competence.getAllCompetences",
+                query="SELECT c FROM Competence c"),
+})
 @Table(name = "competence")
 public class Competence {
     private int competenceId;

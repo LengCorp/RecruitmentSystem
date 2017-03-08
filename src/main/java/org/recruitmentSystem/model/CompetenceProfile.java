@@ -7,6 +7,12 @@ import java.math.BigDecimal;
  * Created by daseel on 2/9/17.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name="competenceProfile.getCompetenceProfileWithPersonId",
+                query="SELECT c FROM CompetenceProfile c where c.personId = :personId"),
+        @NamedQuery(name="competence.getAllCompetences",
+                query="SELECT c FROM Competence c"),
+})
 @Table(name = "competence_profile")
 public class CompetenceProfile {
     private int competenceProfileId;

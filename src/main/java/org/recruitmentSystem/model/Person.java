@@ -5,7 +5,16 @@ import javax.persistence.*;
 /**
  * Created by daseel on 2/9/17.
  */
+
 @Entity
+@NamedQueries({
+        @NamedQuery(name="person.getPersonBySSN",
+                query="SELECT c FROM Person c where c.ssn = :ssn"),
+        @NamedQuery(name="person.getAllPeople",
+                query="SELECT c FROM Person c"),
+        @NamedQuery(name="person.getPersonByUsername",
+                query="SELECT c FROM Person c where c.username = :username"),
+})
 @Table(name = "person")
 public class Person {
     private int personId;
