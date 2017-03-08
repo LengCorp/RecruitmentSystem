@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:body>
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Apply page
+        </ui:define>
+        <ui:define name="content">
+            <h1>Apply! - Competences</h1>
+
+            <h:form>
+                <h:outputLabel for="competences" value="Chose your competence:"/>
+                <h:selectOneMenu id="competences" value="#{apply.chosenCompetence}">
+                    <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
+                    <f:selectItems value="#{apply.competences}" var="item" itemLabel="#{item.name}"
+                                   itemValue="#{item.competenceId}"/>
+                </h:selectOneMenu>
+                <h:outputLabel for="years" value="Years of experience:"/>
+                <h:inputText id="years" value="#{apply.yearsOfExperience}"/>
+                <h:commandButton action="#{apply.saveCompetenceInput}" value="Register"/>
+            </h:form>
+
+            <h:form>
+                <h:outputLabel for="registeredCompetences" value="Your registered competences:"/>
+                <h:selectOneMenu id="registeredCompetences" value="#{apply.chosenSavedCompetence}">
+                    <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
+                    <f:selectItems value="#{apply.savedCompetences}" var="itemtwo" itemLabel="#{itemtwo.name}"
+                                   itemValue="#{itemtwo.competenceId}"/>
+                </h:selectOneMenu>
+                <h:commandButton action="#{apply.deleteMarkedCompetence}" value="Delete"/>
+            </h:form>
+
+            <h:form>
+                <h:commandButton action="#{apply.checkIfThereIsACompetence}" value="Next"/>
+            </h:form>
+            <b:alert rendered="#{param['error'] == true}"
+                     severity="danger"><strong>Oh snap!</strong> You need to submit at least one competence.
+            </b:alert>
+
+            <p>
+                hund: #{apply.submittedCompetences}
+            </p>
+
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

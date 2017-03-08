@@ -27,6 +27,13 @@ public class Person {
     private String username;
 
 
+    public Person(){
+    }
+
+    public Person(String username){
+        this.username = username;
+    }
+
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "person_id")
     public int getPersonId() {

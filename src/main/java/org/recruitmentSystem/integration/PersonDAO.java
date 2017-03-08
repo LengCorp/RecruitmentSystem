@@ -1,6 +1,7 @@
 package org.recruitmentSystem.integration;
 
 import org.recruitmentSystem.Utils;
+import org.recruitmentSystem.model.Competence;
 import org.recruitmentSystem.model.Person;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 import javax.rmi.CORBA.Util;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -49,11 +51,6 @@ public class PersonDAO {
         return "Registration success";
     }
 
-    /**
-     * Gets Person with the correct SSN.
-     * @param ssn
-     * @return person
-     */
     public Person getPersonBySSN(String ssn) throws PersistenceException {
         Person person= em.createNamedQuery("person.getPersonBySSN",Person.class).setParameter("ssn", ssn).getSingleResult();
         return person;
@@ -64,5 +61,6 @@ public class PersonDAO {
     public List<Person> getAllPeople() throws PersistenceException{
         List<Person> people= em.createNamedQuery("person.getAllPeople",Person.class).getResultList();
         return people;
+
     }
 }
