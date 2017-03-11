@@ -1,9 +1,6 @@
 package org.recruitmentSystem.integration;
 
-import org.recruitmentSystem.model.Application;
-import org.recruitmentSystem.model.Competence;
-import org.recruitmentSystem.model.CompetenceProfile;
-import org.recruitmentSystem.model.Person;
+import org.recruitmentSystem.model.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,10 +20,14 @@ public class ApplicationDAO {
     @PersistenceContext(unitName = "RSPU",  type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
-    public Application getApplication(String ssn) throws PersistenceException{
-        PersonDAO dao = new PersonDAO();
-        Person person =  dao.getPerson(ssn);
+    public ApplicationDAO(){}
+
+    public Application getApplicationBySSN(String ssn) throws PersistenceException{
+        PersonDAO dao = new PersonDAO(em);
+        Person person =  dao.getPersonBySSN(ssn);
+        List<Availability> availability = em.createNamedQuery("availability.getAvailabilityById", Availability.class).setParameter("personId", person.getPersonId()).getResultList();
         Application application = new Application(person);
+        application.addAvailabilities(availability);
         List<CompetenceProfile> list = em.createNamedQuery("competenceProfile.getCompetenceProfileWithPersonId", CompetenceProfile.class).setParameter("personId", person.getPersonId()).getResultList();
         for (CompetenceProfile item: list) {
             Competence competence = em.createNamedQuery("competence.getCompetenceById", Competence.class).setParameter("competenceId", item.getCompetenceId()).getSingleResult();

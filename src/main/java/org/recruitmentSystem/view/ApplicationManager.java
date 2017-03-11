@@ -2,99 +2,154 @@ package org.recruitmentSystem.view;
 
 import org.recruitmentSystem.Utils;
 import org.recruitmentSystem.integration.ApplicationDAO;
+import org.recruitmentSystem.integration.PersonDAO;
 import org.recruitmentSystem.model.Application;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
 import javax.persistence.PersistenceException;
+import javax.persistence.PostLoad;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
-/**
- * Created by Hiden on 3/8/2017.
- */
 @ManagedBean
-public class ApplicationGetter {
+public class ApplicationManager implements Serializable {
+
     @EJB
     ApplicationDAO appDAO;
-    Application application;
+    @EJB
+    PersonDAO personDAO;
 
-    private int personId;
-    private String name;
-    private String surname;
-    private String ssn;
-    private String email;
-    private String username;
+    private List<Application> applications = new ArrayList<Application>();
+    private UIComponent submitButton;
+    private Date dataFrom, dataTo;
+    private Date RegistrationDate;
+    private String Competence;
+    private String forename, surname;
+    private String searchWith;
     private String success;
-    private String fail;
 
-    public void SearchForApplicationWithSSN(String ssn) {
+    String[] searchItems = new String[]{
+            "Period available",
+            "Registration date",
+            "Applicant name",
+            "Competence"};
+    private List<String> itemList = Arrays.asList(searchItems);
+
+
+    public void SearchWithPeriod(){
+
+    }
+    public void SearchWithRegDate(){
+
+    }
+    public void searchName(){
         success = null;
-        if (ssn != Utils.regexSSN(ssn)) {
-            fail = "Not valid SSN";
-            return;
-        }
-        try {
-            application = appDAO.getApplicationBySSN(ssn);
-            personId = application.getPersonId();
-            name = application.getName();
-            surname = application.getSurname();
-            email = application.getEmail();
-            ;
+        System.out.println("nlaaaaa ");
+       try {
 
-            success = "success";
-        } catch (PersistenceException ex) {
-            fail = "Failed to get Application";
+            applications.add(appDAO.getApplicationBySSN("19671212-1211"));
+            System.out.println("nlaaaaa");
+            success = "true";
+        }catch (Exception ex){
+            success = "false";
+            System.err.println(ex.getMessage());
         }
     }
-
-    public boolean getSearchForApplication() {
-        return success != null;
+    public boolean getSearchName(){
+        return success!=null;
     }
+    public void SearchWithCompetence(){
 
-    public int getPersonId() {
-        return personId;
     }
-
-    public String getName() {
-        return name;
-    }
-
     public String getSurname() {
         return surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getFail() {
-        return fail;
-    }
-
-    public void setPersonId(int personId) {
-        this.personId = personId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getForename() {
+        return forename;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
 
-    public void setFail(String fail) {
-        this.fail = fail;
+    public String getCompetence() {
+        return Competence;
     }
-}
+
+    public void setCompetence(String competence) {
+        Competence = competence;
+    }
+
+    public Date getRegistrationDate() {
+        return RegistrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        RegistrationDate = registrationDate;
+    }
+
+    public Date getDataTo() {
+        return dataTo;
+    }
+
+    public void setDataTo(Date dataTo) {
+        this.dataTo = dataTo;
+    }
+
+    public Date getDataFrom() {
+        return dataFrom;
+    }
+
+    public void setDataFrom(Date dataFrom) {
+        this.dataFrom = dataFrom;
+    }
+
+    public List<String> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<String> itemList) {
+        this.itemList = itemList;
+    }
+
+    public String getSearchWith() {
+        return searchWith;
+    }
+
+    public void setSearchWith(String searchWith) {
+        this.searchWith = searchWith;
+    }
+
+    public List<Application> getApplications() {
+        System.out.println("oing");
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
+    public UIComponent getSubmitButton() {
+        return submitButton;
+    }
+
+    public void setSubmitButton(UIComponent submitButton) {
+        this.submitButton = submitButton;
+    }
+
+    //public boolean getSearchForApplication() {
+     //   return success != null;
+   // }
+
+   }

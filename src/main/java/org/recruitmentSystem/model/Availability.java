@@ -7,6 +7,12 @@ import java.sql.Date;
  * Created by daseel on 2/9/17.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name="availability.getAvailabilityById",
+                query="SELECT c FROM Availability c where c.personId = :personId"),
+        @NamedQuery(name="availability.availabilities",
+                query="SELECT c FROM Competence c"),
+})
 @Table(name = "availability")
 public class Availability {
     private int availabilityId;

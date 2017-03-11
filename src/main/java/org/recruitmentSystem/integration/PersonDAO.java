@@ -29,7 +29,11 @@ public class PersonDAO {
     public PersonDAO(){
     }
 
-    public String addUser(String name, String surname, String ssn, String email, String password, String username){
+    public PersonDAO(EntityManager em){
+        this.em = em;
+    }
+
+    public String addUser(String name, String surname, String ssn, String email, String password, String username) throws PersistenceException{
 
         Person person = new Person();
 
@@ -58,6 +62,7 @@ public class PersonDAO {
         Person person= em.createNamedQuery("person.getPersonByUsername",Person.class).setParameter("username", username).getSingleResult();
         return person;
     }
+
     public List<Person> getAllPeople() throws PersistenceException{
         List<Person> people= em.createNamedQuery("person.getAllPeople",Person.class).getResultList();
         return people;

@@ -3,3 +3,22 @@ body{
 .failMessage {
     word-wrap: break-word;
 }
+.applicationFormat{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.applicationLine{
+    display: inline-block;
+    width: 100%;
+}
+.applicationLine .bold{
+    font-weight: 600;
+}
+@media (min-width: 768px){
+    .righty{
+        float: right;
+    }
+}
+.jumbotronSizePlz{
+    padding: 0;
+}

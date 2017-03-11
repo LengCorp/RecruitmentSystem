@@ -8,14 +8,11 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
         @NamedQuery(name="competence.getCompetenceById",
-                query="SELECT c.name FROM Competence c where c.competenceId = :competenceId"),
+                query="SELECT c FROM Competence c where c.competenceId = :competenceId"),
         @NamedQuery(name="competence.getAllCompetences",
                 query="SELECT c FROM Competence c"),
 })
 @Table(name = "competence")
-@NamedQueries({
-        @NamedQuery(name = "Competence.findAll", query = "SELECT c FROM Competence c")
-})
 public class Competence {
     private int competenceId;
     private String name;
