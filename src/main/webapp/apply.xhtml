@@ -32,7 +32,7 @@
                 <h:outputLabel for="registeredCompetences" value="Your registered competences: "/>
                 <h:selectOneMenu id="registeredCompetences" value="#{apply.chosenSavedCompetence}">
                     <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
-                    <f:selectItems value="#{apply.savedCompetences}" var="itemtwo" itemLabel="#{itemtwo.name}"
+                    <f:selectItems value="#{apply.savedCompetences}" var="itemtwo" itemLabel="#{itemtwo.name} - #{apply.submittedCompetences[itemtwo.competenceId]} years"
                                    itemValue="#{itemtwo.competenceId}"/>
                 </h:selectOneMenu>
                 <h:commandButton action="#{apply.deleteMarkedCompetence}" value="Delete"/>
