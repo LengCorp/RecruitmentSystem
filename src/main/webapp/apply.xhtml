@@ -17,19 +17,19 @@
             <h1>Apply! - Competences</h1>
 
             <h:form>
-                <h:outputLabel for="competences" value="Chose your competence:"/>
+                <h:outputLabel for="competences" value="Chose your competence: "/>
                 <h:selectOneMenu id="competences" value="#{apply.chosenCompetence}">
                     <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
                     <f:selectItems value="#{apply.competences}" var="item" itemLabel="#{item.name}"
                                    itemValue="#{item.competenceId}"/>
                 </h:selectOneMenu>
-                <h:outputLabel for="years" value="Years of experience:"/>
+                <h:outputLabel for="years" value="Years of experience: "/>
                 <h:inputText id="years" value="#{apply.yearsOfExperience}"/>
                 <h:commandButton action="#{apply.saveCompetenceInput}" value="Register"/>
             </h:form>
 
             <h:form>
-                <h:outputLabel for="registeredCompetences" value="Your registered competences:"/>
+                <h:outputLabel for="registeredCompetences" value="Your registered competences: "/>
                 <h:selectOneMenu id="registeredCompetences" value="#{apply.chosenSavedCompetence}">
                     <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
                     <f:selectItems value="#{apply.savedCompetences}" var="itemtwo" itemLabel="#{itemtwo.name}"
@@ -44,10 +44,6 @@
             <b:alert rendered="#{param['error'] == true}"
                      severity="danger"><strong>Oh snap!</strong> You need to submit at least one competence.
             </b:alert>
-
-            <p>
-                hund: #{apply.submittedCompetences}
-            </p>
 
 
         </ui:define>
