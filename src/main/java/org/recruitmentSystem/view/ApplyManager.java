@@ -11,7 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.text.DateFormat;
@@ -94,6 +96,12 @@ public class ApplyManager {
         successCompetence = "success";
         successAvailability = "success";
 
+        try{
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void saveDates() {
@@ -160,6 +168,15 @@ public class ApplyManager {
             return "success";
         } else {
             return "failure";
+        }
+    }
+
+    public void destroySession() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
