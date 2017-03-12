@@ -19,24 +19,27 @@
             Your Competences:<br/>
             <ui:repeat value="#{apply.submittedCompetences.entrySet().toArray()}" var="entry">
                 Competence: #{entry.key} - #{apply.submittedCompetences[entry.key]} years
-                <br />
+                <br/>
             </ui:repeat>
 
-            <br />
+            <br/>
 
             Your Availability period(s):<br/>
             <ui:repeat value="#{apply.availabilities.entrySet().toArray()}" var="entrytwo">
                 From: #{apply.availabilities[entrytwo.key].fromDate} To: #{apply.availabilities[entrytwo.key].toDate}
                 <br/>
             </ui:repeat>
-
-            <h:form>
-                <h:commandButton action="#{apply}" value="Submit Application"/>
+            <p>
                 <br/>
-                or
-                <br/>
-                <h:commandButton action="#{apply}" value="Trash it!"/>
-            </h:form>
+                <h:form>
+                    <h:commandButton action="#{apply.submitApplication}" value="Submit Application"/>
+                    <br/>
+                    or
+                    <br/>
+                    <h:commandButton action="index" value="Trash it!"/>
+                </h:form>
+            </p>
+            <h:outputLabel rendered="#{apply.success}" value="Application sent"/>
 
 
         </ui:define>
