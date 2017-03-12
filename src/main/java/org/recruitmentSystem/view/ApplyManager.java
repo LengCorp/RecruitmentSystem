@@ -1,6 +1,8 @@
 package org.recruitmentSystem.view;
 
+import org.recruitmentSystem.integration.AvailabilityDAO;
 import org.recruitmentSystem.integration.CompetenceDAO;
+import org.recruitmentSystem.integration.CompetenceProfileDAO;
 import org.recruitmentSystem.integration.PersonDAO;
 import org.recruitmentSystem.model.Availability;
 import org.recruitmentSystem.model.Competence;
@@ -10,6 +12,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -29,47 +32,76 @@ public class ApplyManager {
     private CompetenceDAO competenceDAO;
     private List<Competence> competences;
     private int chosenCompetence;
-    private int yearsOfExperience;
+    private BigDecimal yearsOfExperience;
     private List<Competence> savedCompetences;
     private int chosenSavedCompetence;
-    private Map<String, Integer> submittedCompetences;
+    private Map<Integer, BigDecimal> submittedCompetences;
 
     //availability part
     private Date fromDate;
     private Date toDate;
-    private String from;
-    private String to;
     private Map<Integer, Availability> availabilities;
-    private int localID;
+    private int localId;
     private int chosenSavedAvailability;
     @Inject
     private UserManager userManager;
     @EJB
     private PersonDAO personDAO;
+    private int personId;
+
+    //submit part
+    @EJB
+    private CompetenceProfileDAO competenceProfileDAO;
+    private String successCompetence;
+    @EJB
+    private AvailabilityDAO availabilityDAO;
+    private String successAvailability;
 
 
     @PostConstruct
     public void init() {
         competences = competenceDAO.findAll();
+        successCompetence = "unset";
+        successAvailability = "unset";
         availabilities = new HashMap<>();
-        localID = 1;
+        localId = 1;
         savedCompetences = new ArrayList<>();
         submittedCompetences = new HashMap<>();
+        personId = personDAO.getPersonIDbyUserName(userManager.getUserName());
     }
 
     public ApplyManager() {
     }
 
+    public void submitApplication() {
+
+        int personId = personDAO.getPersonIDbyUserName(userManager.getUserName());
+
+        for (Map.Entry<Integer, BigDecimal> entry : submittedCompetences.entrySet()) {
+            if (!competenceProfileDAO.addCompetenceProfile(personId, entry.getKey(), entry.getValue())) {
+                successCompetence = "failure";
+                return;
+            }
+        }
+
+        for (Map.Entry<Integer, Availability> entry : availabilities.entrySet()) {
+            if (!availabilityDAO.addAvailability(personId, entry.getValue().getFromDate(), entry.getValue().getToDate())) {
+                successAvailability = "failure";
+                return;
+            }
+        }
+
+        successCompetence = "success";
+        successAvailability = "success";
+
+    }
+
     public void saveDates() {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        this.to = formatter.format(toDate);
-        this.from = formatter.format(fromDate);
         Availability a = new Availability();
         a.setFromDate(new java.sql.Date(fromDate.getTime()));
         a.setToDate(new java.sql.Date(toDate.getTime()));
-        int id = personDAO.getPersonIDbyUserName(userManager.getUserName());
-        a.setPersonId(id);
-        availabilities.put(localID++, a);
+        a.setPersonId(personId);
+        availabilities.put(localId++, a);
     }
 
     public void saveCompetenceInput() {
@@ -78,7 +110,7 @@ public class ApplyManager {
             Competence competenceToBeRemoved = new Competence();
             for (Competence competence : competences) {
                 if (competence.getCompetenceId() == chosenCompetence) {
-                    submittedCompetences.put(competence.getName(), yearsOfExperience);
+                    submittedCompetences.put(competence.getCompetenceId(), yearsOfExperience);
                     savedCompetences.add(competence);
                     competenceToBeRemoved = competence;
                 }
@@ -101,11 +133,11 @@ public class ApplyManager {
             }
 
             savedCompetences.remove(competenceToBeRemoved);
-            submittedCompetences.remove(competenceToBeRemoved.getName());
+            submittedCompetences.remove(competenceToBeRemoved.getCompetenceId());
         }
     }
 
-    public void deleteMarkedAvailability(){
+    public void deleteMarkedAvailability() {
 
         if (availabilities != null) {
 
@@ -122,16 +154,20 @@ public class ApplyManager {
         }
     }
 
-    public String checkIfThereIsAnAvailability(){
+    public String checkIfThereIsAnAvailability() {
 
-        if (availabilities.size() > 0){
+        if (availabilities.size() > 0) {
             return "success";
         } else {
             return "failure";
         }
     }
 
-    public Map<String, Integer> getSubmittedCompetences() {
+    public boolean getSuccess() {
+        return (successCompetence.equals("success") && successAvailability.equals("success"));
+    }
+
+    public Map<Integer, BigDecimal> getSubmittedCompetences() {
         return submittedCompetences;
     }
 
@@ -175,11 +211,11 @@ public class ApplyManager {
         this.chosenCompetence = chosenCompetence;
     }
 
-    public int getYearsOfExperience() {
+    public BigDecimal getYearsOfExperience() {
         return yearsOfExperience;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
+    public void setYearsOfExperience(BigDecimal yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
