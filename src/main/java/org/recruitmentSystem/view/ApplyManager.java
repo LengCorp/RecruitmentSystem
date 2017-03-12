@@ -39,7 +39,9 @@ public class ApplyManager {
     private Date toDate;
     private String from;
     private String to;
-    private List<Availability> availabilities;
+    private Map<Integer, Availability> availabilities;
+    private int localID;
+    private int chosenSavedAvailability;
     @Inject
     private UserManager userManager;
     @EJB
@@ -49,7 +51,8 @@ public class ApplyManager {
     @PostConstruct
     public void init() {
         competences = competenceDAO.findAll();
-        availabilities = new ArrayList<>();
+        availabilities = new HashMap<>();
+        localID = 1;
         savedCompetences = new ArrayList<>();
         submittedCompetences = new HashMap<>();
     }
@@ -66,7 +69,7 @@ public class ApplyManager {
         a.setToDate(new java.sql.Date(toDate.getTime()));
         int id = personDAO.getPersonIDbyUserName(userManager.getUserName());
         a.setPersonId(id);
-        availabilities.add(a);
+        availabilities.put(localID++, a);
     }
 
     public void saveCompetenceInput() {
@@ -102,6 +105,14 @@ public class ApplyManager {
         }
     }
 
+    public void deleteMarkedAvailability(){
+
+        if (availabilities != null) {
+
+            availabilities.remove(chosenSavedAvailability);
+        }
+    }
+
     public String checkIfThereIsACompetence() {
 
         if (savedCompetences.size() > 0) {
@@ -111,21 +122,29 @@ public class ApplyManager {
         }
     }
 
-    //TODO print-test
-    public String getSubmittedCompetences() {
-        return submittedCompetences.toString();
+    public String checkIfThereIsAnAvailability(){
+
+        if (availabilities.size() > 0){
+            return "success";
+        } else {
+            return "failure";
+        }
     }
 
-    //TODO print-test
-    public List<String> getAvailabilities() {
+    public Map<String, Integer> getSubmittedCompetences() {
+        return submittedCompetences;
+    }
 
-        List<String> result = new ArrayList<>();
+    public Map<Integer, Availability> getAvailabilities() {
+        return availabilities;
+    }
 
-        for (Availability a : availabilities){
-            result.add("From: " + a.getFromDate() + " To: " + a.getToDate() + " ID: " + a.getPersonId());
-        }
+    public int getChosenSavedAvailability() {
+        return chosenSavedAvailability;
+    }
 
-        return result;
+    public void setChosenSavedAvailability(int chosenSavedAvailability) {
+        this.chosenSavedAvailability = chosenSavedAvailability;
     }
 
     public int getChosenSavedCompetence() {
@@ -170,7 +189,6 @@ public class ApplyManager {
 
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
-        this.from = fromDate.toString();
     }
 
     public Date getToDate() {
@@ -179,14 +197,5 @@ public class ApplyManager {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
-        this.to = toDate.toString();
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
     }
 }
