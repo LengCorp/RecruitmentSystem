@@ -20,6 +20,23 @@
             </redirect>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/apply-availability.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/apply-submit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/apply-availability.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>error</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
 
     <managed-bean>
         <managed-bean-name>register</managed-bean-name>
