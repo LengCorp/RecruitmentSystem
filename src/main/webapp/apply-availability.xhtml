@@ -18,27 +18,27 @@
 
             <h:form>
                 <h:outputLabel for="fromdate" value="From:"/>
-                <b:datepicker id="fromdate" mode="popup-icon" value="#{apply.fromDate}" />
+                <b:datepicker id="fromdate" mode="popup-icon" value="#{apply.fromDate}"/>
                 <h:outputLabel for="todate" value="To:"/>
-                <b:datepicker id="todate" mode="popup-icon" value="#{apply.toDate}" />
-                <h:commandButton action="#{apply.saveDates}" value="test"/>
+                <b:datepicker id="todate" mode="popup-icon" value="#{apply.toDate}"/>
+                <h:commandButton action="#{apply.saveDates}" value="Submit Dates"/>
             </h:form>
-
-            <p>
-                hund: #{apply.submittedCompetences}
-            </p>
-            <p>
-                from: #{apply.from}
-            </p>
-            <p>
-                to: #{apply.to}
-            </p>
-            <p>
-                availabilities: <br/>
-                <ui:repeat value="#{apply.availabilities}" var="item">
-                    #{item} <br/>
-                </ui:repeat>
-            </p>
+            <h:form>
+                <h:outputLabel for="registeredAvailabilities" value="Your registered availabilities: "/>
+                <h:selectOneMenu id="registeredAvailabilities" value="#{apply.chosenSavedAvailability}">
+                    <f:selectItem itemLabel="Select..." noSelectionOption="true"/>
+                    <f:selectItems value="#{apply.availabilities.entrySet().toArray()}" var="entry"
+                                   itemLabel="#{apply.availabilities[entry.key].fromDate} to #{apply.availabilities[entry.key].toDate}"
+                                   itemValue="#{entry.key}"/>
+                </h:selectOneMenu>
+                <h:commandButton action="#{apply.deleteMarkedAvailability}" value="Delete"/>
+            </h:form>
+            <h:form>
+                <h:commandButton action="#{apply.checkIfThereIsAnAvailability}" value="Next"/>
+            </h:form>
+            <b:alert rendered="#{param['error'] == true}"
+                     severity="danger"><strong>Oh snap!</strong> You need to submit at least one availability.
+            </b:alert>
 
 
         </ui:define>
