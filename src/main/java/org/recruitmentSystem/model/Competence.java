@@ -7,9 +7,19 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "competence")
+@NamedQueries({
+        @NamedQuery(name = "Competence.findAll", query = "SELECT c FROM Competence c")
+})
 public class Competence {
     private int competenceId;
     private String name;
+
+    public Competence() {
+    }
+
+    public Competence(String name) {
+        this.name = name;
+    }
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "competence_id")

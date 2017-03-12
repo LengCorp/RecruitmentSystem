@@ -5,6 +5,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.recruitmentSystem.model.Person;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
+import javax.transaction.UserTransaction;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,9 +30,30 @@ public class PersonDAOTest {
     @Inject
     private PersonDAO personDAO;
 
-   // @PersistenceContext(unitName = "RSPU", type = PersistenceContextType.TRANSACTION)
-   // private EntityManager em;
+    @Inject
+    private UserTransaction userTransaction;
 
+    @PersistenceContext(unitName = "RSPU", type = PersistenceContextType.TRANSACTION)
+    private EntityManager em;
+
+
+    @Before
+    public void setUp() throws Exception {
+
+        userTransaction.begin();
+        em.joinTransaction();
+
+        em.persist(new Person("person1"));
+        em.persist(new Person("person2"));
+        em.persist(new Person("person3"));
+        em.persist(new Person("person4"));
+        em.persist(new Person("person5"));
+        em.persist(new Person("borg"));
+
+        userTransaction.commit();
+        em.clear();
+
+    }
 
     @Test
     public void addUser() throws Exception {
@@ -38,9 +61,14 @@ public class PersonDAOTest {
 
         String retu = personDAO.addUser("emil", "lengman",
                 "1995-05-28-6998", "asd@asd.se", "asd", "emillen");
-     //   Person p = em.find(Person.class, 1);
+        //   Person p = em.find(Person.class, 1);
     }
 
+    @Test
+    public void getPersonIDbyUserName() throws Exception {
+
+        assertEquals(6, personDAO.getPersonIDbyUserName("borg"));
+    }
 
     @Deployment
     public static JavaArchive createDeployment() {

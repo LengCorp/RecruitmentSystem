@@ -37,7 +37,7 @@
         <web-resource-collection>
             <web-resource-name>None Protected User Area</web-resource-name>
             <description/>
-            <url-pattern>/users.xhtml</url-pattern>
+            <url-pattern>/apply.xhtml</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>HEAD</http-method>
