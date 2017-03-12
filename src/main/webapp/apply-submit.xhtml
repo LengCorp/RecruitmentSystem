@@ -17,16 +17,16 @@
             <h1>Apply! - Finalizing</h1>
 
             Your Competences:<br/>
-            <ui:repeat value="#{apply.submittedCompetences.entrySet().toArray()}" var="entry">
-                Competence: #{entry.key} - #{apply.submittedCompetences[entry.key]} years
+            <ui:repeat value="#{apply.savedCompetences}" var="item">
+                Competence: #{item.name} - #{apply.submittedCompetences[item.competenceId]} years
                 <br/>
             </ui:repeat>
 
             <br/>
 
             Your Availability period(s):<br/>
-            <ui:repeat value="#{apply.availabilities.entrySet().toArray()}" var="entrytwo">
-                From: #{apply.availabilities[entrytwo.key].fromDate} To: #{apply.availabilities[entrytwo.key].toDate}
+            <ui:repeat value="#{apply.availabilities.entrySet().toArray()}" var="entry">
+                From: #{apply.availabilities[entry.key].fromDate} To: #{apply.availabilities[entry.key].toDate}
                 <br/>
             </ui:repeat>
             <p>
@@ -36,7 +36,7 @@
                     <br/>
                     or
                     <br/>
-                    <h:commandButton action="index" value="Trash it!"/>
+                    <h:commandButton action="#{apply.destroySession}" value="Trash it!"/>
                 </h:form>
             </p>
             <h:outputLabel rendered="#{apply.success}" value="Application sent"/>
