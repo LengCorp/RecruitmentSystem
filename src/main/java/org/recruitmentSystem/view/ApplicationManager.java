@@ -12,6 +12,8 @@ import javax.faces.component.UIComponent;
 import javax.persistence.PersistenceException;
 import javax.persistence.PostLoad;
 import java.io.Serializable;
+import java.lang.reflect.Executable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,12 +29,12 @@ public class ApplicationManager implements Serializable {
 
     private List<Application> applications = new ArrayList<Application>();
     private UIComponent submitButton;
-    private Date dataFrom, dataTo;
-    private Date RegistrationDate;
-    private String Competence;
+    private String dataFrom, dataTo;
+    private String registrationDate;
+    private String competence;
     private String forename, surname;
     private String searchWith;
-    private String success;
+    private String success, success2;
 
     String[] searchItems = new String[]{
             "Period available",
@@ -41,6 +43,10 @@ public class ApplicationManager implements Serializable {
             "Competence"};
     private List<String> itemList = Arrays.asList(searchItems);
 
+    @PostConstruct
+    public void setDates(){
+
+    }
 
     public void SearchWithPeriod(){
 
@@ -64,8 +70,26 @@ public class ApplicationManager implements Serializable {
     public boolean getSearchName(){
         return success!=null;
     }
-    public void SearchWithCompetence(){
 
+    public void search(){
+        System.out.println("ping");
+        success2 = null;
+        try {
+
+            applications.addAll(appDAO.getApplicationSearchResult(forename, surname, competence, dataFrom, dataTo, registrationDate));
+            success = "true";
+        }catch (PersistenceException ex){
+            System.out.println("malformed dates");
+        }finally {
+            surname = null;
+            forename = null;
+            dataTo = null;
+            dataFrom = null;
+            registrationDate=null;
+        }
+    }
+    public boolean getSearch() {
+        return success2 != null;
     }
     public String getSurname() {
         return surname;
@@ -84,34 +108,34 @@ public class ApplicationManager implements Serializable {
     }
 
     public String getCompetence() {
-        return Competence;
+        return competence;
     }
 
     public void setCompetence(String competence) {
-        Competence = competence;
+        this.competence = competence;
     }
 
-    public Date getRegistrationDate() {
-        return RegistrationDate;
+    public String getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        RegistrationDate = registrationDate;
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
-    public Date getDataTo() {
+    public String getDataTo() {
         return dataTo;
     }
 
-    public void setDataTo(Date dataTo) {
+    public void setDataTo(String dataTo) {
         this.dataTo = dataTo;
     }
 
-    public Date getDataFrom() {
+    public String getDataFrom() {
         return dataFrom;
     }
 
-    public void setDataFrom(Date dataFrom) {
+    public void setDataFrom(String dataFrom) {
         this.dataFrom = dataFrom;
     }
 

@@ -1,6 +1,10 @@
 package org.recruitmentSystem.model;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.sql.Date;
 
 /**
  * Created by daseel on 2/9/17.
@@ -14,6 +18,23 @@ import javax.persistence.*;
                 query="SELECT c FROM Person c"),
         @NamedQuery(name="person.getPersonByUsername",
                 query="SELECT c FROM Person c where c.username = :username"),
+        @NamedQuery(name="person.getPeoplebyFullName",
+        query="SELECT c FROM Person c where c.name = :forename AND c.surname = :surname"),
+        @NamedQuery(name="person.getPersonWhereAllParametersMatch",
+                query="SELECT p " +
+                        "FROM CompetenceProfile c, Competence q, Person p, Availability a, Role r " +
+                        "WHERE q.competenceId = c.competenceId  " +
+                        "AND c.personId = p.personId " +
+                        "AND p.personId = a.personId " +
+                        "AND p.roleId = 1" +
+
+                        " AND (:competence = '' or q.name= :competence)" +
+                        " AND (:forename = '' or p.name = :forename)" +
+                        " AND (:surname = '' or p.surname = :surname)" +
+                        " AND (:fromDate IS null or a.fromDate <= :fromDate)" +
+                        " AND (:toDate IS null or a.toDate >= :toDate)" +
+                        " AND (:regDate IS null or  p.registrationDate = :regDate)")
+
 })
 @Table(name = "person")
 public class Person {
@@ -25,6 +46,7 @@ public class Person {
     private String password;
     private int roleId;
     private String username;
+    private Date registrationDate;
 
 
     public Person(){
@@ -42,6 +64,26 @@ public class Person {
 
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+
+    @Basic
+    @Column(name = "registrationDate")
+    public Date getRegistrationDate(){
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+    @PrePersist
+    public void registerDate() {
+        Calendar registration = Calendar.getInstance();
+        registration.set(Calendar.HOUR_OF_DAY, 12);
+        registration.set(Calendar.MINUTE, 0);
+        registration.set(Calendar.SECOND, 0);
+        registration.set(Calendar.MILLISECOND, 0);
+        registrationDate =  new java.sql.Date( registration.getTime().getTime());
+        return;
     }
 
     @Basic

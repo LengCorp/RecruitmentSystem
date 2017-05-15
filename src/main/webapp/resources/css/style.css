@@ -11,7 +11,7 @@ body{
     display: inline-block;
     width: 100%;
 }
-.applicationLine .bold{
+.bold{
     font-weight: 600;
 }
 @media (min-width: 768px){
@@ -21,4 +21,7 @@ body{
 }
 .jumbotronSizePlz{
     padding: 0;
+}
+form .col-sm-4 input{
+    width: 100%;
 }

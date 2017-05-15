@@ -66,6 +66,17 @@ public class PersonDAO {
     public List<Person> getAllPeople() throws PersistenceException{
         List<Person> people= em.createNamedQuery("person.getAllPeople",Person.class).getResultList();
         return people;
+    }
 
+    public Person getPersonById(int personId) {
+        Person person= em.find(Person.class, personId);
+        return person;
+
+    }
+
+    public List<Person> getPeopleWithName(String forename, String surname) {
+        List<Person> people = em.createNamedQuery("person.getPeoplebyFullName", Person.class).setParameter("forename", forename).setParameter("surname", surname).getResultList();
+
+        return people;
     }
 }

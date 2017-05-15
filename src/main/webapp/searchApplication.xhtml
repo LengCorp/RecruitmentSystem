@@ -5,13 +5,8 @@
 <html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://java.sun.com/jsf/core"
->
-<h:head>
-
-</h:head>
+        xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://java.sun.com/jsf/core">
  <h:body>
-
     <ui:composition template="template/layout.xhtml">
         <ui:define name="title">
             Recruitment System
@@ -20,87 +15,53 @@
             <h:outputStylesheet name="css/style.css"   />
             <b:jumbotron>
                 <h1 class="page-header">
-                    Search for application!
+                    Search for applications!
                 </h1>
-                <b:form id = "radioForm">
-                    <h3>search with</h3>
-                    <h:selectOneRadio id="console" layout="pageDirection"  required="true" value="#{applicationSearcher.searchWith}">
-                        <f:selectItems style="float: left;" class="col-sm-10" value="#{applicationSearcher.itemList}"/>
-                        <f:ajax execute="@form" render="@form okPannel radioForm"/>
-                    </h:selectOneRadio>
-                </b:form>
-                <h:panelGroup id="okPannel" >
-                    <b:form rendered="#{applicationSearcher.searchWith eq 'Applicant name'}">
-                        <h4 style="margin-top: 2em;">applicant name</h4>
-                        <h:panelGroup>
-                        <div class="form-group" >
+                <b:form>
+                    <h:panelGroup>
+                    <div class="applicationLine">
+                        <div class="form-group col-sm-4" >
+                            <h4 class="bold">Applicant name</h4>
                             <label class="control-label ">Forename</label>
-                            <h:outputLabel for="forename"/>
-                            <div class="">
+
+                            <div>
                                 <h:inputText id="forename" value="#{applicationSearcher.forename}"/>
                             </div>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label ">Surname</label>
-                            <h:outputLabel for="surname"/>
-                            <div class="">
+                           <div>
                                 <h:inputText id="surname" value="#{applicationSearcher.surname}"/>
                             </div>
                         </div>
-                            <b:commandButton class="btn btn-primary btn-lg" binding="#{applicationSearcher.submitButton}" action="#{applicationSearcher.searchName}" value="Search"/>
-                        </h:panelGroup>
-                    </b:form>
-                    <b:form rendered="#{applicationSearcher.searchWith eq 'Competence'}">
-                        <h4 style="margin-top: 2em;">Competence</h4>
-                        <h:panelGroup>
-                            <div class="form-group" >
+                        <div class="form-group col-sm-4" >
+                            <h4 class="bold">Period available</h4>
+                            <label class="control-label ">From</label>
+                            <div>
+                                <b:datepicker id="PeriodFrom" value="#{applicationSearcher.dataFrom}"/>
+                            </div>
+                            <label class="control-label ">To</label>
+                           <div >
+                                <b:datepicker id="PeriodTo" value="#{applicationSearcher.dataTo}"/>
+                            </div>
+                        </div>
+                            <div class="form-group col-sm-4" >
+                                <h4 class="bold">Other search criterias</h4>
                                 <label class="control-label">Competence</label>
-                                <h:outputLabel for="competence"/>
-                                <div class="">
+                                <div >
                                     <h:inputText id="competence" value="#{applicationSearcher.competence}"/>
                                 </div>
-                            </div>
-                            <b:commandButton class="btn btn-primary btn-lg" action="#{applicationSearcher.SearchWithCompetence}" value="Search"/>
-                        </h:panelGroup>
-                    </b:form>
-                    <b:form rendered="#{applicationSearcher.searchWith eq 'Registration date'}">
-                        <h4 style="margin-top: 2em;">Registration date</h4>
-                        <h:panelGroup>
-                            <div class="form-group" >
                                 <label class="control-label ">Registration Date</label>
-                                <h:outputLabel for="regDate"/>
-                                <div class="">
-                                    <h:inputText id="regDate" value="#{applicationSearcher.registrationDate}"/>
+                                <div>
+                                    <b:datepicker id="regDate" value="#{applicationSearcher.registrationDate}">
+                                    </b:datepicker>
                                 </div>
                             </div>
-                            <b:commandButton class="btn btn-primary btn-lg" action="#{applicationSearcher.SearchWithRegDate}" value="Search"/>
-                        </h:panelGroup>
+                    </div>
+                    </h:panelGroup>
+                    <b:commandButton class="btn btn-primary btn-lg col-sm-offset-1" action="#{applicationSearcher.search}" value="Search"/>
                     </b:form>
-                    <b:form rendered="#{applicationSearcher.searchWith eq 'Period available'}">
-                        <h4 style="margin-top: 2em;">Period available</h4>
-                        <h:panelGroup>
-                            <div class="form-group" >
-                                <label class="control-label ">From</label>
-                                <h:outputLabel for="PeriodFrom"/>
-                                <div class="">
-                                    <h:inputText id="PeriodFrom" value="#{applicationSearcher.dataFrom}"/>
-                                </div>
-                            </div>
-                            <div class="form-group" >
-                                <label class="control-label ">To</label>
-                                <h:outputLabel for="PeriodTo"/>
-                                <div class="">
-                                    <h:inputText id="PeriodTo" value="#{applicationSearcher.dataTo}"/>
-                                </div>
-                            </div>
-                        <b:commandButton class="btn btn-primary btn-lg" action="#{applicationSearcher.SearchWithPeriod}" value="Search"/>
-                        </h:panelGroup>
-                    </b:form>
-
-                </h:panelGroup>
             </b:jumbotron>
             <ul class="jumbotronSizePlz">
-                <ui:repeat value="#{applicationSearcher.applications}" rendered="#{applicationSearcher.searchName}" var="app">
+                <ui:repeat value="#{applicationSearcher.applications}" rendered="#{applicationSearcher.search}" var="app">
                     <div class="jumbotron applicationFormat" >
                         <div class="applicationLine">
                             <div class="applicationLine contact-info">

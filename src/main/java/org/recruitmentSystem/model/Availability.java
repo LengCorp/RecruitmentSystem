@@ -12,6 +12,7 @@ import java.sql.Date;
                 query="SELECT c FROM Availability c where c.personId = :personId"),
         @NamedQuery(name="availability.availabilities",
                 query="SELECT c FROM Competence c"),
+        @NamedQuery(name="availability.getAllThatAreWithinFromTo", query = "SELECT c FROM Availability c WHERE c.fromDate < :fromDate  AND c.toDate > :toDate")
 })
 @Table(name = "availability")
 public class Availability {

@@ -64,12 +64,6 @@ public class PersonDAOTest {
         //   Person p = em.find(Person.class, 1);
     }
 
-    @Test
-    public void getPersonIDbyUserName() throws Exception {
-
-        assertEquals(6, personDAO.getPersonIDbyUserName("borg"));
-    }
-
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class).addPackage(PersonDAO.class.getPackage()).addPackage(Person.class.getPackage())

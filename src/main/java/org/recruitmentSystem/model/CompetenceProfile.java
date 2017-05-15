@@ -12,6 +12,8 @@ import java.math.BigDecimal;
                 query="SELECT c FROM CompetenceProfile c where c.personId = :personId"),
         @NamedQuery(name="competenceProfile.getAllCompetences",
                 query="SELECT c FROM CompetenceProfile c"),
+        @NamedQuery(name="competenceProfile.getCompetenceProfilesWithCompetenceNamed",
+                query="SELECT c FROM CompetenceProfile c, Competence q WHERE q.competenceId = c.competenceId AND q.name= :name"),
 })
 @Table(name = "competence_profile")
 public class CompetenceProfile {

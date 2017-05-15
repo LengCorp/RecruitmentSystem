@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head>
+
+</h:head>
+ <h:body>
+
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Recruitment System
+        </ui:define>
+        <ui:define name="content">
+            <h:outputStylesheet name="css/style.css"   />
+            <b:jumbotron>
+                <h1 class="page-header">
+                    Search for application!
+                </h1>
+                <b:form id = "radioForm">
+                    <h3>search with</h3>
+                    <h:selectOneRadio id="console" layout="pageDirection"  required="true" value="#{applicationSearcher.searchWith}">
+                        <f:selectItems style="float: left;" class="col-sm-10" value="#{applicationSearcher.itemList}"/>
+                        <f:ajax execute="@form" render="@form okPannel radioForm"/>
+                    </h:selectOneRadio>
+                </b:form>
+                <h:panelGroup id="okPannel" >
+                    <b:form rendered="#{applicationSearcher.searchWith eq 'Applicant name'}">
+                        <h4 style="margin-top: 2em;">applicant name</h4>
+                        <h:panelGroup>
+                        <div class="form-group" >
+                            <label class="control-label ">Forename</label>
+                            <h:outputLabel for="forename"/>
+                            <div class="">
+                                <h:inputText id="forename" value="#{applicationSearcher.forename}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label ">Surname</label>
+                            <h:outputLabel for="surname"/>
+                            <div class="">
+                                <h:inputText id="surname" value="#{applicationSearcher.surname}"/>
+                            </div>
+                        </div>
+                            <b:commandButton class="btn btn-primary btn-lg" binding="#{applicationSearcher.submitButton}" action="#{applicationSearcher.searchName}" value="Search"/>
+                        </h:panelGroup>
+                    </b:form>
+                    <b:form rendered="#{applicationSearcher.searchWith eq 'Competence'}">
+                        <h4 style="margin-top: 2em;">Competence</h4>
+                        <h:panelGroup>
+                            <div class="form-group" >
+                                <label class="control-label">Competence</label>
+                                <h:outputLabel for="competence"/>
+                                <div class="">
+                                    <h:inputText id="competence" value="#{applicationSearcher.competence}"/>
+                                </div>
+                            </div>
+                            <b:commandButton class="btn btn-primary btn-lg" action="#{applicationSearcher.SearchWithCompetence}" value="Search"/>
+                        </h:panelGroup>
+                    </b:form>
+                    <b:form rendered="#{applicationSearcher.searchWith eq 'Registration date'}">
+                        <h4 style="margin-top: 2em;">Registration date</h4>
+                        <h:panelGroup>
+                            <div class="form-group" >
+                                <label class="control-label ">Registration Date</label>
+                                <h:outputLabel for="regDate"/>
+                                <div class="">
+                                    <h:inputText id="regDate" value="#{applicationSearcher.registrationDate}"/>
+                                </div>
+                            </div>
+                            <b:commandButton class="btn btn-primary btn-lg" action="#{applicationSearcher.SearchWithRegDate}" value="Search"/>
+                        </h:panelGroup>
+                    </b:form>
+                    <b:form rendered="#{applicationSearcher.searchWith eq 'Period available'}">
+                        <h4 style="margin-top: 2em;">Period available</h4>
+                        <h:panelGroup>
+                            <div class="form-group" >
+                                <label class="control-label ">From</label>
+                                <h:outputLabel for="PeriodFrom"/>
+                                <div class="">
+                                    <h:inputText id="PeriodFrom" value="#{applicationSearcher.dataFrom}"/>
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <label class="control-label ">To</label>
+                                <h:outputLabel for="PeriodTo"/>
+                                <div class="">
+                                    <h:inputText id="PeriodTo" value="#{applicationSearcher.dataTo}"/>
+                                </div>
+                            </div>
+                        <b:commandButton class="btn btn-primary btn-lg" action="#{applicationSearcher.SearchWithPeriod}" value="Search"/>
+                        </h:panelGroup>
+                    </b:form>
+
+                </h:panelGroup>
+            </b:jumbotron>
+            <ul class="jumbotronSizePlz">
+                <ui:repeat value="#{applicationSearcher.applications}" rendered="#{applicationSearcher.searchName}" var="app">
+                    <div class="jumbotron applicationFormat" >
+                        <div class="applicationLine">
+                            <div class="applicationLine contact-info">
+                                <h4 class="col-sm-4 bold"><h:outputText value="#{app.fullName}"/></h4>
+                                <div class="col-sm-3 "><label class="bold">Email</label><br/><h:outputText value="#{app.email}"/>
+                                </div>
+                                <div class="col-sm-2 bold"><label class="bold">Username</label><br/> <h:outputText value="#{app.username}"/></div>
+                                <div class="col-sm-3 righty">
+                                    <label class="bold">Date applied</label><br/>2015-04-20
+                                </div>
+                            </div>
+                        </div>
+                       <div class="applicationLine">
+                           <h4 class="col-sm-4 bold">Availability</h4>
+                            <div class="availability applicationLine">
+                                <ui:repeat value="#{app.availability}" var="avail">
+                                    <div class="col-sm-7">
+                                        <h:outputText value="#{avail.fromDate}"/><b> to </b><h:outputText value="#{avail.fromDate}"/>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </div>
+                        <div class="applicationLine">
+                            <h4 class="col-sm-4 bold">Competence profile</h4>
+                            <div class="competence applicationLine">
+                                <ui:repeat value="#{app.competences}" var="comp">
+                                    <div class="col-sm-7">
+                                        <h:outputText styleClass="col-sm-6" value="#{comp.competenceName}"/>
+                                        <div class="col-sm-4">
+                                            <h:outputText value="#{comp.yearsOfExperience}"/> Years.
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </div>
+
+                    </div>
+                </ui:repeat>
+            </ul>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

@@ -13,8 +13,8 @@ VALUES (1, 'Korvgrillning');
 INSERT INTO competence (competence_id, name)
 VALUES (2, 'Karuselldrift');
 INSERT INTO competence_profile (competence_profile_id, person_id,
-competence_id, years_of_experience)
+                                competence_id, years_of_experience)
 VALUES (1, 2, 1, 3.5);
 INSERT INTO competence_profile (competence_profile_id, person_id,
-competence_id, years_of_experience)
+                                competence_id, years_of_experience)
 VALUES (2, 2, 2, 2.0);

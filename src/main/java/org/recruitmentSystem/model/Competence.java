@@ -11,6 +11,8 @@ import javax.persistence.*;
                 query="SELECT c FROM Competence c where c.competenceId = :competenceId"),
         @NamedQuery(name="competence.getAllCompetences",
                 query="SELECT c FROM Competence c"),
+        @NamedQuery(name="competence.getCompetenceWithName",
+                query="SELECT c FROM Competence c WHERE c.name = :name"),
 })
 @Table(name = "competence")
 public class Competence {
