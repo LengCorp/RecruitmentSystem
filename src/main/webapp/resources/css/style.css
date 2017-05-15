@@ -17,11 +17,18 @@ body{
 @media (min-width: 768px){
     .righty{
         float: right;
+        text-align: right;
     }
 }
 .jumbotronSizePlz{
     padding: 0;
+    list-style-type:none;
 }
 form .col-sm-4 input{
     width: 100%;
+}
+.emailInList{
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
 }
