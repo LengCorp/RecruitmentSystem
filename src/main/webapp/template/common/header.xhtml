@@ -8,7 +8,7 @@
 
 <h:body>
     <ui:composition>
-            <b:navBar brand="Recruitment System" brandHref="#" inverse="true">
+            <b:navBar brand="Recruitment System" brandHref="index.xhtml" inverse="true">
                 <c:if test="#{user.loggedIn}">
                     <b:navbarLinks pull="right" styleClass="hidden-xs">
                         <b:dropMenu value="#{user.userName}">
@@ -16,6 +16,12 @@
                         </b:dropMenu>
                     </b:navbarLinks>
                 </c:if>
+                <c:if test="#{!user.loggedIn}">
+                    <b:navbarLinks pull="right" styleClass="hidden-xs">
+                            <b:navLink href="#{request.getContextPath()}/register.xhtml" value="Register"/>
+                    </b:navbarLinks>
+                </c:if>
+
             </b:navBar>
     </ui:composition>
 </h:body>
