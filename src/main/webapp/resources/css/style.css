@@ -43,3 +43,10 @@ form .col-sm-4 input{
 .applicationUnit:hover{
     background-color: #dfdfdf;
 }
+@media print
+{
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
