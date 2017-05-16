@@ -32,3 +32,14 @@ form .col-sm-4 input{
     white-space:nowrap;
     overflow:hidden;
 }
+.applicationUnit{
+    background-color: #eeeeee;
+    color: black;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+.applicationUnit:hover{
+    background-color: #dfdfdf;
+}
