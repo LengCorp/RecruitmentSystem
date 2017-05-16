@@ -63,8 +63,8 @@
 
             <ul class="jumbotronSizePlz">
                 <li>
-                    <b:form class="jumbotron applicationFormat" >
-                        <div class="applicationLine">
+                    <b:form class="jumbotron applicationFormat applicationUnit">
+                        <div class="applicationLine" >
                             <div class="applicationLine contact-info">
                                 <h4 class="col-sm-4 bold"><h:outputText value="ffffffff fffffffffffff"/></h4>
                                 <div class="col-sm-3 emailInList"><label class="bold">Email</label><br/><h:outputText value="wwwwwww@wwwwwwwww.www"/>
@@ -75,10 +75,26 @@
                                 </div>
                             </div>
                         </div>
+                        <b:commandButton class="btn-sm btn-primary btn-lg col-sm-offset-1" action="#{applicationSearcher.showWholeApplication('lol')}" value="View"/>
                     </b:form>
-                </li>
+                </li> <li>
+                <b:form class="jumbotron applicationFormat applicationUnit">
+                    <div class="applicationLine" >
+                        <div class="applicationLine contact-info">
+                            <h4 class="col-sm-4 bold"><h:outputText value="ffffffff fffffffffffff"/></h4>
+                            <div class="col-sm-3 emailInList"><label class="bold">Email</label><br/><h:outputText value="wwwwwww@wwwwwwwww.www"/>
+                            </div>
+                            <div class="col-sm-2 bold"><label class="bold">Username</label><br/> <h:outputText value="wwwwwwwww"/></div>
+                            <div class="col-sm-3 righty">
+                                <label class="bold">Date applied</label><br/>2015-04-20
+                            </div>
+                        </div>
+                    </div>
+                    <b:commandButton class="btn-sm btn-primary btn-lg col-sm-offset-1" action="#{applicationSearcher.showWholeApplication('lol2')}" value="View"/>
+                </b:form>
+            </li>
                 <ui:repeat value="#{applicationSearcher.applications}" rendered="#{applicationSearcher.search}" var="app">
-                    <div class="jumbotron applicationFormat" >
+                    <b:form class="jumbotron applicationFormat applicationUnit" >
                         <div class="applicationLine">
                             <div class="applicationLine contact-info">
                                 <h4 class="col-sm-4 bold"><h:outputText value="#{app.fullName}"/></h4>
@@ -90,6 +106,7 @@
                                 </div>
                             </div>
                         </div>
+                        <b:commandButton class="btn-sm btn-primary btn-lg col-sm-offset-1" action="#{applicationSearcher.showWholeApplication(app.username)}" value="View"/>
                         <!--<div class="applicationLine">
                            <h4 class="col-sm-4 bold">Availability</h4>
                             <div class="availability applicationLine">
@@ -114,7 +131,7 @@
                             </div>
                         </div>
 -->
-                    </div>
+                    </b:form>
                 </ui:repeat>
             </ul>
         </ui:define>
