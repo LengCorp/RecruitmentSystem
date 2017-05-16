@@ -44,53 +44,58 @@ public class ApplicationManager implements Serializable {
     private List<String> itemList = Arrays.asList(searchItems);
 
     @PostConstruct
-    public void setDates(){
+    public void setDates() {
 
     }
 
-    public void SearchWithPeriod(){
+    public void SearchWithPeriod() {
 
     }
-    public void SearchWithRegDate(){
+
+    public void SearchWithRegDate() {
 
     }
-    public void searchName(){
+
+    public void searchName() {
         success = null;
         System.out.println("nlaaaaa ");
-       try {
+        try {
 
             applications.add(appDAO.getApplicationBySSN("19671212-1211"));
             System.out.println("nlaaaaa");
             success = "true";
-        }catch (Exception ex){
+        } catch (Exception ex) {
             success = "false";
             System.err.println(ex.getMessage());
         }
     }
-    public boolean getSearchName(){
-        return success!=null;
+
+    public boolean getSearchName() {
+        return success != null;
     }
 
-    public void search(){
+    public void search() {
         System.out.println("ping");
         success2 = null;
         try {
 
             applications.addAll(appDAO.getApplicationSearchResult(forename, surname, competence, dataFrom, dataTo, registrationDate));
             success = "true";
-        }catch (PersistenceException ex){
+        } catch (PersistenceException ex) {
             System.out.println("malformed dates");
-        }finally {
+        } finally {
             surname = null;
             forename = null;
             dataTo = null;
             dataFrom = null;
-            registrationDate=null;
+            registrationDate = null;
         }
     }
+
     public boolean getSearch() {
         return success2 != null;
     }
+
     public String getSurname() {
         return surname;
     }
@@ -173,7 +178,10 @@ public class ApplicationManager implements Serializable {
     }
 
     //public boolean getSearchForApplication() {
-     //   return success != null;
-   // }
-
-   }
+    //   return success != null;
+    // }
+    public String showWholeApplication(String s) {
+        System.out.println(s);
+        return null;
+    }
+}
