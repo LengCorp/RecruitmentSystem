@@ -9,29 +9,33 @@ import java.util.List;
 /**
  * Created by Hiden on 3/8/2017.
  */
-public class Application implements Serializable{
+public class Application implements Serializable {
     private int applicationID;
     Person person;
     private List<Availability> availability;
     List<CompetenceListItem> competences;
     private String fullName;
-    public Application(Person person){
+
+    public Application(Person person) {
         competences = new ArrayList<CompetenceListItem>();
         this.person = person;
-        fullName = this.person.getName() +" "+ person.getSurname();
+        fullName = this.person.getName() + " " + person.getSurname();
     }
 
-    public void  addCompetence(CompetenceProfile profile, Competence name){
+    public void addCompetence(CompetenceProfile profile, Competence name) {
         applicationID = profile.getCompetenceId();
-        competences.add(new CompetenceListItem(profile,name));
+        competences.add(new CompetenceListItem(profile, name));
     }
-    public List<Availability> getAvailability(){
+
+    public List<Availability> getAvailability() {
         return availability;
     }
-    public void addAvailabilities(List<Availability> availability){
+
+    public void addAvailabilities(List<Availability> availability) {
         this.availability = availability;
     }
-    public List<CompetenceListItem> getCompetences(){
+
+    public List<CompetenceListItem> getCompetences() {
         return competences;
     }
 
@@ -44,7 +48,7 @@ public class Application implements Serializable{
     }
 
     public String getUsername() {
-        return person.getUsername()!=null && person.getUsername().length()>1? person.getUsername() : "________" ;
+        return person.getUsername() != null && person.getUsername().length() > 1 ? person.getUsername() : "________";
     }
 
     public String getSsn() {
@@ -58,10 +62,12 @@ public class Application implements Serializable{
     public String getSurname() {
         return person.getSurname();
     }
-    public void setFullName(String name){
+
+    public void setFullName(String name) {
         fullName = name;
     }
-    public String getFullName(){
+
+    public String getFullName() {
         return person.getName() + " " + person.getSurname();
     }
 
@@ -73,17 +79,17 @@ public class Application implements Serializable{
         this.applicationID = applicationID;
     }
 
-    public class CompetenceListItem implements Serializable{
+    public class CompetenceListItem implements Serializable {
         private int competenceId;
         private int competenceProfileId;
         private BigDecimal yearsOfExperience;
         private String competenceName;
 
-        public CompetenceListItem(CompetenceProfile profile, Competence competenceName){
+        public CompetenceListItem(CompetenceProfile profile, Competence competenceName) {
             this.competenceId = profile.getCompetenceId();
             this.competenceProfileId = profile.getCompetenceProfileId();
-            this.competenceName  = competenceName.getName();
-            this.yearsOfExperience  = profile.getYearsOfExperience();
+            this.competenceName = competenceName.getName();
+            this.yearsOfExperience = profile.getYearsOfExperience();
         }
 
         public BigDecimal getYearsOfExperience() {
@@ -102,5 +108,4 @@ public class Application implements Serializable{
             return competenceName;
         }
     }
-
 }
