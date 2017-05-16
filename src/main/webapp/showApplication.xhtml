@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Recruitment System
+        </ui:define>
+        <ui:define name="content">
+            <h:outputStylesheet name="css/style.css"/>
+            <div class="jumbotronSizePlz">
+                <b:form class="jumbotron applicationFormat applicationUnit">
+                    <div class="applicationLine" >
+                        <div class="applicationLine contact-info">
+                            <h4 class="col-sm-4 bold"><h:outputText value="ffffffff fffffffffffff"/></h4>
+                            <div class="col-sm-3 emailInList"><label class="bold">Email</label><br/><h:outputText value="wwwwwww@wwwwwwwww.www"/>
+                            </div>
+                            <div class="col-sm-2 bold"><label class="bold">Username</label><br/> <h:outputText value="wwwwwwwww"/></div>
+                            <div class="col-sm-3 righty">
+                                <label class="bold">Date applied</label><br/>2015-04-20
+                            </div>
+                        </div>
+                    </div>
+                    <div class="applicationLine">
+                      <h4 class="col-sm-4 bold">Availability</h4>
+                       <div class="availability applicationLine">
+                               <div class="col-sm-8">
+                                   <h:outputText value="12-12-2016"/><b> to </b><h:outputText value="12-12-2016"/>
+                               </div> <div class="col-sm-8">
+                           <h:outputText value="12-12-2016"/><b> to </b><h:outputText value="12-12-2016"/>
+                       </div>
+                       </div>
+                   </div>
+                   <div class="applicationLine">
+                       <h4 class="col-sm-4 bold">Competence profile</h4>
+                       <div class="competence applicationLine">
+                           <div class="col-sm-7">
+                               <h:outputText styleClass="applicationLine bold" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
+                               <div class="col-sm-4 righty">
+                                   <h:outputText value="xxx"/> years.
+                               </div>
+                           </div>
+                           <div class="col-sm-7">
+                               <h:outputText styleClass="applicationLine bold" value="#wwwwwwwwwwwwwwwwwwwwwwwwww"/>
+                               <div class="col-sm-4 righty">
+                                    <h:outputText value="14"/> years.
+                               </div>
+                           </div>
+                           <div class="col-sm-7">
+                               <h:outputText styleClass="applicationLine bold" value="yyyyyyyyyyyyyyyyyyyyyyyyyyy"/>
+                               <div class="col-sm-4 righty">
+                                   <h:outputText value="yyyyy"/> years.
+                               </div>
+                            </div>
+                       </div>
+                   </div>
+           </b:form>
+           <ui:repeat value="#{applicationSearcher.applications}" rendered="#{applicationSearcher.search}" var="app">
+               <b:form class="jumbotron applicationFormat applicationUnit" >
+                   <div class="applicationLine">
+                       <div class="applicationLine contact-info">
+                           <h4 class="col-sm-4 bold"><h:outputText value="#{app.fullName}"/></h4>
+                           <div class="col-sm-3 emailInList"><label class="bold">Email</label><br/><h:outputText value="#{app.email}"/>
+                           </div>
+                           <div class="col-sm-2 bold"><label class="bold">Username</label><br/> <h:outputText value="#{app.username}"/></div>
+                           <div class="col-sm-3 righty">
+                               <label class="bold">Date applied</label><br/>2015-04-20
+                           </div>
+                       </div>
+                   </div>
+                   <div class="applicationLine">
+                      <h4 class="col-sm-4 bold">Availability</h4>
+                       <div class="availability applicationLine">
+                           <ui:repeat value="#{app.availability}" var="avail">
+                               <div class="col-sm-7">
+                                   <h:outputText value="#{avail.fromDate}"/><b> to </b><h:outputText value="#{avail.fromDate}"/>
+                               </div>
+                           </ui:repeat>
+                       </div>
+                   </div>
+                   <div class="applicationLine">
+                       <h4 class="col-sm-4 bold">Competence profile</h4>
+                       <div class="competence applicationLine">
+                           <ui:repeat value="#{app.competences}" var="comp">
+                               <div class="col-sm-7">
+                                   <h:outputText styleClass="col-sm-6" value="#{comp.competenceName}"/>
+                                   <div class="col-sm-4">
+                                       <h:outputText value="#{comp.yearsOfExperience}"/> Years.
+                                   </div>
+                               </div>
+                           </ui:repeat>
+                       </div>
+                   </div>
+                    </b:form>
+                </ui:repeat>
+                <a href="javascript:window.print()" class="btn-sm btn-primary no-print">Print</a>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>
