@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:body>
+    <ui:composition template="template/layout.xhtml">
+        <ui:define name="title">
+            Apply page
+        </ui:define>
+        <ui:define name="content">
+            <h1>Apply! - Finalizing</h1>
+
+            Your Competences:<br/>
+            <ui:repeat value="#{apply.savedCompetences}" var="item">
+                Competence: #{item.name} - #{apply.submittedCompetences[item.competenceId]} years
+                <br/>
+            </ui:repeat>
+
+            <br/>
+
+            Your Availability period(s):<br/>
+            <ui:repeat value="#{apply.availabilities.entrySet().toArray()}" var="entry">
+                From: #{apply.availabilities[entry.key].fromDate} To: #{apply.availabilities[entry.key].toDate}
+                <br/>
+            </ui:repeat>
+            <p>
+                <br/>
+                <h:form>
+                    <h:commandButton action="#{apply.submitApplication}" value="Submit Application"/>
+                    <br/>
+                    or
+                    <br/>
+                    <h:commandButton action="#{apply.destroySession}" value="Trash it!"/>
+                </h:form>
+            </p>
+            <h:outputLabel rendered="#{apply.success}" value="Application sent"/>
+
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
